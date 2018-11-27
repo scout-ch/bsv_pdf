@@ -1,7 +1,8 @@
 require 'csv'
-require_relative 'advisor_statement_pdf'
+require_relative 'export/advisor_statement_pdf'
+require_relative 'export/canton_statement_pdf'
 
-# path = File.
+ROOT = File.expand_path('..', __dir__)
 
 options = {
   encoding: "ISO8859-1:utf-8",
@@ -14,6 +15,7 @@ options = {
 Course = Struct.new(*%i[vereinbarungs_id_fiver kurs_id_fiver kurs_kind kantonalverband region number first_event_date last_event_date location advisor_person_id training_days participant_count leader_count canton_count language_count])
 Advisor = Struct.new(*%i[id first_name last_name nickname address zip_code town country email salutation_value])
 AdvisorStatement = Struct.new(*%i[advisor courses year])
+CantonStatement = Struct.new(*%i[canton courses year])
 
 courses = []
 advisors = {}
@@ -25,8 +27,6 @@ CSV.foreach("data/advanced_bsv_export.csv", options) do |row|
   p course
 end
 
-  p courses
-  p advisors
-
-  AdvisorStatementPdf.new(AdvisorStatement.new(advisors.values.last, courses, 2018)).build.save_as('xxx.pdf')
+AdvisorStatementPdf.new(AdvisorStatement.new(advisors.values.last, courses, 2018)).build.save_as(File.join(ROOT, 'tmp/lkb.pdf'))
+CantonStatementPdf.new(CantonStatement.new('AG', courses, 2018)).build.save_as(File.join(ROOT, 'tmp/canton.pdf'))
 
