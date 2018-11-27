@@ -38,7 +38,7 @@ require_relative 'pdf_base'
 
       # @document.table table_data, column_widths: [80, 125, 125, 80, 80], cell_style: { padding: [2, 4, 2, 4] } do
       @document.table table_data, column_widths: [280, 60, 60, 60, 60, 60], cell_style: { size: 6 } do
-        # cells.style(size: 4, border_width: 16
+        cells.style(size: 4)
         # column(4).style(align: :right)
         # column(0).style(font_style: :bold)
         # row(-1).style(borders: [:top], font_style: :bold)
