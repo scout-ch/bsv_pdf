@@ -34,7 +34,7 @@ require_relative 'pdf_base'
 
     def course_count_data(course)
       course_count_data = course.participations.map do |participation|
-        empty_row(2) + [participation.count, participation.days, participation.total] + empty_row(3)
+        empty_row(2) + [participation.days, participation.count, participation.total] + empty_row(3)
       end
       course_count_data = course_count_data + ([empty_row(8)] * (2 - course_count_data.count)) if course_count_data.count < 2
       course_count_data
