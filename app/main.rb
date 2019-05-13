@@ -39,8 +39,8 @@ advisors.each do |advisor_id, advisor|
   advisor_statement_pdf.save_as(File.join(ROOT, "tmp/lkb_#{advisor.id}.pdf"))
 end
 
-courses.group_by(&:cantonal_association).each do |cantonal_association, courses_of_association|
-  canton_statement_pdf = CantonStatementPdf.new(CantonStatement.new(cantonal_association, courses_of_association, year, amount_per_participant)).build
-  canton_statement_pdf.save_as(File.join(ROOT, "tmp/canton_#{cantonal_association}.pdf"))
+courses.group_by(&:regional_association).each do |regional_association, courses_of_association|
+  canton_statement_pdf = CantonStatementPdf.new(CantonStatement.new(regional_association, courses_of_association, year, amount_per_participant)).build
+  canton_statement_pdf.save_as(File.join(ROOT, "tmp/canton_#{regional_association}.pdf"))
 end
 

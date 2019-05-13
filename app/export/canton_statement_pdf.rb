@@ -65,7 +65,7 @@ require_relative 'pdf_base'
       empty_row(4) + [
         "Total",
         @canton_statement.total_participation_count,
-        @canton_statement.total_participation_count,
+        format('CHF %0.2f', @canton_statement.total_amount),
         format('CHF %0.2f', @canton_statement.total_amount)
       ]
     end
@@ -77,7 +77,7 @@ require_relative 'pdf_base'
       move_down 12
       text "Auszahlung der Kurs-Subventionen des KV #{@canton_statement.canton}", size: 14, style: :bold
       move_down 12
-      text "In diesen Tagen können wir Euch die Kurs-Subventionen des BSV für die bis heute abgerechneten Kurse berweisen. Wir bitten Euch, Euren Kassierer darüber zu informieren."
+      text "In diesen Tagen können wir Euch die Kurs-Subventionen des BSV für die bis heute abgerechneten Kurse überweisen. Wir bitten Euch, Euren Kassierer darüber zu informieren."
       move_down 12
       text "Ohne Euren Gegenbericht innert 20 Tagen gehen wir davon aus, dass Ihr mit den unten aufgeführten Angaben einverstanden seid."
       move_down 20
