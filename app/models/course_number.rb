@@ -13,6 +13,10 @@ class CourseNumber
     @kind = match[:kind]
   end
 
+  def pbs_ch?
+    @course_number_string.starts_with?('PBS CH')
+  end
+
   def to_s
     @course_number_string
     # "PBS CH #{cantonal_association} #{kind}#{regional_association}#{count_number}-#{year}"

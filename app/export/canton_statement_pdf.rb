@@ -79,6 +79,8 @@ require_relative 'pdf_base'
       move_down 12
       text "In diesen Tagen können wir Euch die Kurs-Subventionen des BSV für die bis heute abgerechneten Kurse überweisen. Wir bitten Euch, Euren Kassierer darüber zu informieren."
       move_down 12
+      text "Der Tagesansatz ist aktuell CHF #{@canton_statement.amount_per_participant} / TN"
+      move_down 12
       text "Ohne Euren Gegenbericht innert 20 Tagen gehen wir davon aus, dass Ihr mit den unten aufgeführten Angaben einverstanden seid."
       move_down 20
 

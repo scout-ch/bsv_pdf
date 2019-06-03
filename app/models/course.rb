@@ -34,6 +34,10 @@ Course = Struct.new(*COURSE_FIELD_MAPPING.keys) do
     @course_number ||= CourseNumber.new(course_number_string)
   end
 
+  def pbs_ch?
+    course_number.pbs_ch?
+  end
+
   def regional_association
     return cantonal_association unless cantonal_association == "ZH"
     "#{cantonal_association}_#{course_number.regional_association}"
