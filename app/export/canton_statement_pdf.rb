@@ -33,8 +33,8 @@ require_relative 'pdf_base'
     end
 
     def course_count_data(course)
-      course_count_data = course.participations.map do |participation|
-        empty_row(2) + [participation.days, participation.count, participation.total] + empty_row(3)
+      course_count_data = course.bsv_eligible_attendance.map do |attendance|
+        empty_row(2) + [attendance.count, attendance.days, attendance.total] + empty_row(3)
       end
       course_count_data = course_count_data + ([empty_row(8)] * (2 - course_count_data.count)) if course_count_data.count < 2
       course_count_data
@@ -42,9 +42,9 @@ require_relative 'pdf_base'
 
     def course_sum_data(course)
       empty_row(5) + [
-        course.participations_count,
-        format('CHF %0.2f', course.participations_count * @canton_statement.amount_per_participant),
-        format('CHF %0.2f', course.participations_count * @canton_statement.amount_per_participant)
+        course.bsv_eligible_attendances,
+        format('CHF %0.2f', course.bsv_eligible_attendances * @canton_statement.amount_per_participant),
+        format('CHF %0.2f', course.bsv_eligible_attendances * @canton_statement.amount_per_participant)
       ]
     end
 
@@ -64,7 +64,7 @@ require_relative 'pdf_base'
     def table_footer_data
       empty_row(4) + [
         "Total",
-        @canton_statement.total_participation_count,
+        @canton_statement.total_attendance_count,
         format('CHF %0.2f', @canton_statement.total_amount),
         format('CHF %0.2f', @canton_statement.total_amount)
       ]

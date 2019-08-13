@@ -1,4 +1,4 @@
-require_relative 'participation'
+require_relative 'attendance'
 require_relative 'course_number'
 
 COURSE_FIELD_MAPPING = {
@@ -12,12 +12,14 @@ COURSE_FIELD_MAPPING = {
   last_event_date: "End Datum",
   # location: "Kursort",
   training_days: "Ausbildungstage",
-  # bsv_days: "BSV Tage",
-  participant_count: "Teilnehmende (17-30)",
-  participant_days: "Teilnehmende (17-30) x Tage",
+  bsv_eligible_participations_count: "Berechtigte Teilnehmende (17-30)",
+  bsv_eligible_attendance_summary: "Berechtigte Teilnehmende (17-30) x Tage",
+  bsv_eligible_attendances: "Berechtigte Tage",
   # leader_count: "Kursleitende",
-  # person_count: "Teilnehmende Total (inkl. Kursleitende)",
-  # person_days: "Teilnehmende Total x Tage",
+  all_participants_count: "Teilnehmende Total (inkl. Kursleitende)",
+  all_participants_attendance_summary: "Teilnehmende Total x Tage",
+  all_participants_attendances: "Total Tage",
+  # bsv_days: "BSV Tage",
   # canton_count: "Wohnkantone der TN",
   # language_count: "Sprachen",
   advisor_id: "LKB Personen-ID"
@@ -28,9 +30,6 @@ Course = Struct.new(*COURSE_FIELD_MAPPING.keys) do
 
   def initialize(*values)
     super
-  end
-
-  def course_number
     @course_number ||= CourseNumber.new(course_number_string)
   end
 
@@ -51,12 +50,12 @@ Course = Struct.new(*COURSE_FIELD_MAPPING.keys) do
     course_number.year
   end
 
-  def participations
-    @participations ||= Participation.from_participations_string(participant_days)
+  def bsv_eligible_attendance
+    @bsv_eligible_attendance ||= Attendance.from_attendance_summary(bsv_eligible_attendance_summary)
   end
 
-  def participations_count
-    participations.sum(&:total)
+  def all_participants_attendance
+    @all_participants_attendance ||= Attendance.from_attendance_summary(all_participants_attendance_summary)
   end
 
   def assign_advisor(advisors)
@@ -65,5 +64,8 @@ Course = Struct.new(*COURSE_FIELD_MAPPING.keys) do
 
   def self.from_csv(row)
     new(*row.to_h.slice(*COURSE_FIELD_MAPPING.values).values)
+  # rescue CourseNumber::MalformedCourseNumberError
+  rescue
+    nil
   end
 end

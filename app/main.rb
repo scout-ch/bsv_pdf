@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 require_relative 'export/advisor_statement_pdf'
 require_relative 'export/canton_statement_pdf'
 require_relative 'models/course'
@@ -13,9 +14,9 @@ canton = 'AG'
 amount_per_participant = 25.0
 
 csv_options = {
-  # encoding: "ISO8859-1:utf-8",
-  encoding: "utf-8",
-  col_sep: ',',
+  encoding: "ISO8859-1:utf-8",
+  # encoding: "utf-8",
+  col_sep: ';',
   liberal_parsing: true,
   converters: :numeric,
   headers: :first_row
@@ -26,6 +27,7 @@ advisors = {}
 
 CSV.foreach(file, csv_options) do |row|
   course = Course.from_csv(row)
+  next unless course
   advisors[course.advisor_id] ||= Advisor.from_csv(row)
   course.assign_advisor(advisors)
   courses << course
