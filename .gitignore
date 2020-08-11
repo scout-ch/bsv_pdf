@@ -1,2 +1,4 @@
 /tmp/**
 /data/**
+/out/**
+/*.csv

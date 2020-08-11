@@ -8,9 +8,9 @@ require_relative 'models/advisor_statement'
 require_relative 'models/canton_statement'
 
 ROOT = File.expand_path('..', __dir__)
-file = File.join(ROOT, ARGV[0] || "data/advanced_bsv_export.csv")
-year = 2019
-canton = 'AG'
+in_path = File.join(ROOT, ARGV[0] || "in.csv")
+out_path = File.join(ROOT, 'out')
+year = Date.new.year
 amount_per_participant = 25.0
 
 csv_options = {
@@ -25,7 +25,7 @@ csv_options = {
 courses = []
 advisors = {}
 
-CSV.foreach(file, csv_options) do |row|
+CSV.foreach(in_path, **csv_options) do |row|
   course = Course.from_csv(row)
   next unless course
   advisors[course.advisor_id] ||= Advisor.from_csv(row)
@@ -38,11 +38,11 @@ advisors.each do |advisor_id, advisor|
   next unless courses_of_advisor.count.positive?
 
   advisor_statement_pdf = AdvisorStatementPdf.new(AdvisorStatement.new(advisor, courses_of_advisor, year, amount_per_participant)).build
-  advisor_statement_pdf.save_as(File.join(ROOT, "tmp/lkb_#{advisor.id}.pdf"))
+  advisor_statement_pdf.save_as(File.join(out_path, "lkb_#{advisor.id}.pdf"))
 end
 
 courses.select(&:pbs_ch?).group_by(&:regional_association).each do |regional_association, courses_of_association|
   canton_statement_pdf = CantonStatementPdf.new(CantonStatement.new(regional_association, courses_of_association, year, amount_per_participant)).build
-  canton_statement_pdf.save_as(File.join(ROOT, "tmp/canton_#{regional_association}.pdf"))
+  canton_statement_pdf.save_as(File.join(out_path, "canton_#{regional_association}.pdf"))
 end
 
