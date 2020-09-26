@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  node: 
+    build: .
+    volumes:
+      - .:/app
+    ports: 
+      - "3000:3000"
+    command: ['yarn', 'run', 'start']
+    tty: true

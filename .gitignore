@@ -2,3 +2,4 @@
 /data/**
 /out/**
 /*.csv
+/node_modules
