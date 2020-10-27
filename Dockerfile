@@ -1,4 +1,5 @@
 FROM node:13.12.0-alpine
+RUN apk update && apk add git
 
 # set working directory
 WORKDIR /app
