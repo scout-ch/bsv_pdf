@@ -1,4 +1,4 @@
-FROM node:13.12.0-alpine
+FROM node:14-alpine
 RUN apk update && apk add git
 
 # set working directory
@@ -14,8 +14,8 @@ RUN addgroup -S app -g $GID && \
     chown -R app:app /app
 
 # install app dependencies
-COPY package.json ./
-COPY yarn.lock ./
+COPY ./package.json ./
+COPY ./yarn.lock ./
 RUN yarn install --silent
 
 # add app
