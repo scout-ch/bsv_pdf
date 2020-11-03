@@ -1,12 +1,11 @@
-import { PDFViewer } from '@react-pdf/renderer';
 import React, { ReactElement, useState } from 'react';
 import { ColumnType, DSVImport } from 'react-dsv-import';
 import './App.css';
-import { AdvisorStatementPdf } from './components/AdvisorStatement/AdvisorStatementPdf';
-import { CourseTable } from './components/Course/CourseTable';
+import { CourseTable } from './components/CourseTable';
 import { AdvisorMap } from './models/advisor';
 import { Course } from './models/course';
 import { extractAdvisor, extractCourse, ImportData } from './models/import_data';
+import { AdvisorTable } from './components/AdvisorTable';
 
 
 const columns: ColumnType<ImportData>[] = [
@@ -70,8 +69,6 @@ function App(): ReactElement {
   const handleChange = (data: ImportData[]) => setState(transformImportData(data));
   const { courses } = state;
 
-  const advisor = courses[0]?.advisor;
-
   return (
     <div>
       <DSVImport<ImportData> columns={columns} onChange={handleChange} >
@@ -82,15 +79,8 @@ function App(): ReactElement {
 1023;PFAD23;Weiterbildung (funktionsbezogen);Pfadi Kanton Solothurn, Pfadi ;;PBS CH AG 551-20;10.01.2020;12.01.2020;Solothurn;1.5;1.5;65;5x0.5, 9x1, 51x1.5;88;12;70;8x0.5, 9x1, 53x1.5;92.5;6;1;;;;;;;;;;Hallo
         `} >
       </textarea>
-      {advisor && <PDFViewer style={{ display: 'flex', width: '100%', height: '80vh' }}>
-        <AdvisorStatementPdf
-          amountPerCourse={100.0}
-          year={2020}
-          advisor={advisor}
-          courses={courses.filter(c => c.advisor?.id === advisor?.id)}
-        ></AdvisorStatementPdf>
-      </PDFViewer>}
       <CourseTable courses={courses}></CourseTable>
+      <AdvisorTable advisors={Object.values(state.advisors)} courses={courses}></AdvisorTable>
     </div >
   );
 }
