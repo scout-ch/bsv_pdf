@@ -1,74 +1,60 @@
 import { Advisor } from "./advisor";
 import { Attendance } from "./attendance";
-import { Course, CourseNumber } from "./course";
+import { Course, CourseNumber, NoCourseNumberError } from "./course";
 
-export type ImportData = {
-  agreementIdFiver: string;
-  courseIdFiver: string;
-  kind: string;
-  cantonalAssociation: string;
-  regionalAssociation: string;
-  courseNumberString: string;
-  firstCourseDate: string;
-  lastCourseDate: string;
-  location: string;
-  trainingDays: string;
-  bsvDays: string;
-  bsvEligibleParticipationsCount: string;
-  bsvEligibleAttendanceSummary: string;
-  bsvEligibleAttendances: string;
-  leaderCount: string;
-  allParticipantsCount: string;
-  allParticipantsAttendanceSummary: string;
-  allParticipantsAttendances: string;
-  cantonsCount: string;
-  languagesCount: string;
-  advisor_id: string;
-  advisor_firstName: string;
-  advisor_lastName: string;
-  advisor_scoutName: string;
-  advisor_address: string;
-  advisor_zipcode: string;
-  advisor_place: string;
-  advisor_country: string;
-  advisor_email: string;
-  advisor_salutation: string;
-};
+export function getAdvisorId(tupel: ImportTupel): string {
+  return tupel[20]
+}
 
-export function extractCourse(data: ImportData): Course {
-  return {
-    agreementIdFiver: data.agreementIdFiver,
-    courseIdFiver: data.courseIdFiver,
-    kind: data.kind,
-    courseNumber: new CourseNumber(data.courseNumberString),
-    firstCourseDate: data.firstCourseDate,
-    lastCourseDate: data.lastCourseDate,
-    location: data.location,
-    trainingDays: data.trainingDays,
-    bsvDays: data.bsvDays,
-    bsvEligibleParticipationsCount: data.bsvEligibleParticipationsCount,
-    bsvEligibleAttendances: data.bsvEligibleAttendances,
-    bsvEligibleAttendance: Attendance.fromAttendanceSummary(data.bsvEligibleAttendanceSummary),
-    leaderCount: data.leaderCount,
-    allParticipantsCount: data.allParticipantsCount,
-    allParticipantsAttendanceSummary: data.allParticipantsAttendanceSummary,
-    allParticipantsAttendances: data.allParticipantsAttendances,
-    allParticipantsAttendance: Attendance.fromAttendanceSummary(data.allParticipantsAttendanceSummary),
-    cantonsCount: data.cantonsCount,
-    languagesCount: data.languagesCount
+export type ImportTupel = [
+  string, string, string, string, string, string, string, string, string, string,
+  string, string, string, string, string, string, string, string, string, string,
+  string, string, string, string, string, string, string, string, string, string
+]
+
+export function extractCourse(tupel: ImportTupel): Course | null {
+  try {
+    return {
+      agreementIdFiver: tupel[0],
+      courseIdFiver: tupel[1],
+      kind: tupel[2],
+      courseNumber: new CourseNumber(tupel[5]),
+      firstCourseDate: tupel[6],
+      lastCourseDate: tupel[7],
+      location: tupel[8],
+      trainingDays: tupel[9],
+      bsvDays: tupel[10],
+      bsvEligibleParticipationsCount: tupel[11],
+      bsvEligibleAttendances: tupel[13],
+      bsvEligibleAttendance: Attendance.fromAttendanceSummary(tupel[12]),
+      leaderCount: tupel[14],
+      allParticipantsCount: tupel[15],
+      allParticipantsAttendanceSummary: tupel[16],
+      allParticipantsAttendances: tupel[17],
+      allParticipantsAttendance: Attendance.fromAttendanceSummary(tupel[16]),
+      cantonsCount: tupel[18],
+      languagesCount: tupel[19]
+    }
+  } catch (e) {
+    if (e instanceof NoCourseNumberError) {
+      return null;
+    }
+    else {
+      throw e;
+    }
   }
 }
 
-export function extractAdvisor(data: ImportData): Advisor {
+export function extractAdvisor(tupel: ImportTupel): Advisor {
   return new Advisor(
-    data.advisor_id,
-    data.advisor_firstName,
-    data.advisor_lastName,
-    data.advisor_scoutName,
-    data.advisor_address,
-    data.advisor_zipcode,
-    data.advisor_place,
-    data.advisor_country,
-    data.advisor_email,
-    data.advisor_salutation)
+    tupel[20],
+    tupel[21],
+    tupel[22],
+    tupel[23],
+    tupel[24],
+    tupel[25],
+    tupel[26],
+    tupel[27],
+    tupel[28],
+    tupel[29]);
 }

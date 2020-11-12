@@ -16,7 +16,7 @@ export function AdvisorTable({ advisors, courses }: Props): ReactElement {
       <thead></thead>
       <tbody>
         {advisors.map(advisor => (
-          <tr key={advisor.id}>
+          <tr key={advisor.id || Math.random() * 10000000}>
             <td>{advisor.toString()} </td>
             <td><AdvisorStatementPdfLink advisor={advisor} year={2020} amountPerCourse={10.0} courses={courses.filter(course => course.advisor?.id === advisor.id)}></AdvisorStatementPdfLink></td>
           </tr>
