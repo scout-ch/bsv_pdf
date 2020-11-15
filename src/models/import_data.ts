@@ -45,7 +45,8 @@ export function extractCourse(tupel: ImportTupel): Course | null {
   }
 }
 
-export function extractAdvisor(tupel: ImportTupel): Advisor {
+export function extractAdvisor(tupel: ImportTupel): Advisor | null {
+  if (!tupel[20]) return null;
   return new Advisor(
     tupel[20],
     tupel[21],

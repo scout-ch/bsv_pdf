@@ -8,8 +8,6 @@ type Props = {
   courses: Course[];
 }
 
-
-
 export function AdvisorTable({ advisors, courses }: Props): ReactElement {
   return (
     <table>

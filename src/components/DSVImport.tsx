@@ -12,8 +12,11 @@ export type ImportResult = {
 const transform = (data: ImportTupel[]): ImportResult => {
   const advisors: AdvisorMap = {}
   const courses: Course[] = data.reduce((result: Course[], tupel) => {
-    const advisorId = tupel[21]
-    if (!advisors[advisorId]) advisors[advisorId] = extractAdvisor(tupel);
+    const advisorId = tupel[20]
+    if (!advisors[advisorId]) {
+      const newAdvisor = extractAdvisor(tupel);
+      newAdvisor && (advisors[advisorId] = newAdvisor)
+    }
     const advisor = advisors[advisorId];
     const course = extractCourse(tupel)
     course && result.push({ advisor, ...course })
