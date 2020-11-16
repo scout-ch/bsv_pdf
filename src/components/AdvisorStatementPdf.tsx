@@ -1,5 +1,6 @@
 import { jsPDF } from "jspdf";
-import React, { ReactElement, useEffect, useState } from 'react';
+import jspdfTable from 'jspdf-autotable'
+import React, { ReactElement } from 'react';
 import { Advisor } from '../models/advisor';
 import { Course } from '../models/course';
 import signature from '../images/signature.png'
@@ -33,6 +34,15 @@ export function generatePdf({ advisor, courses, year, amountPerCourse }: Advisor
     `Im vergangenen Jahr hast Du die unten aufgeführten Kurse betreut. Dafür erhälst Du heute die LKB Entschädigung.`
   ], pageMargin, cursor, { maxWidth: innerWidth })
   cursor += 20
+  jspdfTable(document, {
+    // head: {
+    //   key: 'Kursschlüssel', kind: 'Kursart J+S LS/T', pbs_kind: 'PBS Kursart', amount: 'Entschädigung'
+    // },
+    body: courses.map<string[]>(course => {
+      return [course.courseNumber.toString(), course.kind, course.kind, amountPerCourse.toFixed(2)]
+    })
+  })
+  // + [[null, null, "Total", format('%0.2f', courses.length * amountPerCourse)]]
 
   // @document.table table_data, column_widths: [110, 150, 150, 80, 80], cell_style: { padding: [2, 4, 2, 4] } do
   //   cells.style(size: 8, border_width: 1)
