@@ -1,33 +1,34 @@
-import React, { ReactElement, useState } from 'react';
-import { DSVImport, ImportResult } from './components/DSVImport';
+import React, { ReactElement, useState, createContext } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
-import { CourseTable } from './components/CourseTable';
-import { AdvisorMap } from './models/advisor';
-import { Course } from './models/course';
-import { AdvisorTable } from './components/AdvisorTable';
-import styles from './App.module.css'
+import MainView from './views/MainView';
+import { AdvisorMap } from "./models/advisor"
+import { Course } from "./models/course"
+import { ImportResult } from './components/DSVImport';
+import { AdvisorStatementPdfView } from './views/AdivsorStatementPdfView';
 
-type AppState = {
+export type AppState = {
   courses: Course[];
   advisors: AdvisorMap;
 }
 
+export const defaultAppState = { courses: [], advisors: {} }
+
+export const AppContext = createContext<AppState>(defaultAppState)
+
 function App(): ReactElement {
-  const [state, setState] = useState<AppState>({ courses: [], advisors: {} });
-  const handleChange = (value: ImportResult) => setState({ courses: value.courses, advisors: value.advisors });
-  const { courses } = state;
+  const [state, setState] = useState<AppState>(defaultAppState);
+  const handleImport = (value: ImportResult) => setState({ courses: value.courses, advisors: value.advisors });
 
   return (
-    <div className={styles.container}>
-      <div>
-        <h1>BSV PDF</h1>
-        <DSVImport onChange={handleChange} ></DSVImport>
-        <h2>Kurse</h2>
-        <CourseTable courses={courses}></CourseTable>
-        <h2>LKB</h2>
-        <AdvisorTable advisors={Object.values(state.advisors)} courses={courses}></AdvisorTable>
-      </div >
-    </div>
+    <AppContext.Provider value={state}>
+      <Router>
+        <Switch>
+          <Route exact path="/" children={<MainView onImport={handleImport}></MainView>}></Route>
+          <Route path="/advisors/:id" children={<AdvisorStatementPdfView></AdvisorStatementPdfView>}></Route>
+        </Switch>
+      </Router>
+    </AppContext.Provider>
   );
 }
 

@@ -1,25 +1,23 @@
 import React, { ReactElement } from 'react'
 import { Advisor } from '../models/advisor'
-import { Course } from '../models/course'
-import { AdvisorStatementPdfLink } from './AdvisorStatementPdf'
+import { Link } from 'react-router-dom'
 
 type Props = {
   advisors: Advisor[];
-  courses: Course[];
 }
 
-export function AdvisorTable({ advisors, courses }: Props): ReactElement {
+export function AdvisorTable({ advisors }: Props): ReactElement {
   return (
     <table>
       <thead></thead>
       <tbody>
         {advisors.map(advisor => (
           <tr key={advisor.id || Math.random() * 10000000}>
-            <td>{advisor.toString()} </td>
-            <td><AdvisorStatementPdfLink advisor={advisor} year={2020} amountPerCourse={10.0} courses={courses.filter(course => course.advisor?.id === advisor.id)}></AdvisorStatementPdfLink></td>
+            <td>{advisor.toString()}</td>
+            <td><Link to={`/advisors/${advisor.id}`}>PDF</Link></td>
           </tr>
         ))}
       </tbody>
-    </table>
+    </table >
   )
 }
