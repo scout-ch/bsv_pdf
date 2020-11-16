@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "./static/css/main.870249c8.chunk.css",
-    "main.js": "./static/js/main.dfecc6e6.chunk.js",
-    "main.js.map": "./static/js/main.dfecc6e6.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.be179ac0.js",
-    "runtime-main.js.map": "./static/js/runtime-main.be179ac0.js.map",
-    "static/js/2.bd3c533d.chunk.js": "./static/js/2.bd3c533d.chunk.js",
-    "static/js/2.bd3c533d.chunk.js.map": "./static/js/2.bd3c533d.chunk.js.map",
-    "index.html": "./index.html",
-    "static/css/main.870249c8.chunk.css.map": "./static/css/main.870249c8.chunk.css.map",
-    "static/js/2.bd3c533d.chunk.js.LICENSE.txt": "./static/js/2.bd3c533d.chunk.js.LICENSE.txt",
-    "static/media/signature.efb88629.png": "./static/media/signature.efb88629.png"
+    "main.css": "/bsv_pdf/static/css/main.870249c8.chunk.css",
+    "main.js": "/bsv_pdf/static/js/main.dfecc6e6.chunk.js",
+    "main.js.map": "/bsv_pdf/static/js/main.dfecc6e6.chunk.js.map",
+    "runtime-main.js": "/bsv_pdf/static/js/runtime-main.6fb7ba1d.js",
+    "runtime-main.js.map": "/bsv_pdf/static/js/runtime-main.6fb7ba1d.js.map",
+    "static/js/2.bd3c533d.chunk.js": "/bsv_pdf/static/js/2.bd3c533d.chunk.js",
+    "static/js/2.bd3c533d.chunk.js.map": "/bsv_pdf/static/js/2.bd3c533d.chunk.js.map",
+    "index.html": "/bsv_pdf/index.html",
+    "static/css/main.870249c8.chunk.css.map": "/bsv_pdf/static/css/main.870249c8.chunk.css.map",
+    "static/js/2.bd3c533d.chunk.js.LICENSE.txt": "/bsv_pdf/static/js/2.bd3c533d.chunk.js.LICENSE.txt",
+    "static/media/signature.efb88629.png": "/bsv_pdf/static/media/signature.efb88629.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.be179ac0.js",
+    "static/js/runtime-main.6fb7ba1d.js",
     "static/js/2.bd3c533d.chunk.js",
     "static/css/main.870249c8.chunk.css",
     "static/js/main.dfecc6e6.chunk.js"
