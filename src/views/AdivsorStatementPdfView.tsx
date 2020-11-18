@@ -10,7 +10,7 @@ export type AdvisorStatementPdfViewParams = {
 
 export const AdvisorStatementPdfView: FunctionComponent<{}> = () => {
   const { id } = useParams<AdvisorStatementPdfViewParams>()
-  const { courses, advisors } = useContext<AppState>(AppContext)
+  const { courses, advisors, amountPerCourse, year } = useContext<AppState>(AppContext)
   const advisor = advisors[id]
 
   return (
@@ -20,7 +20,7 @@ export const AdvisorStatementPdfView: FunctionComponent<{}> = () => {
         <button onClick={() => window.print()}>Print</button>
       </div>
 
-      {advisor && <AdvisorStatementPdf advisor={advisor} courses={courses.filter(course => course.advisor?.id === advisor.id)} year={2020} amountPerCourse={10.0}></AdvisorStatementPdf>}
+      {advisor && <AdvisorStatementPdf advisor={advisor} courses={courses.filter(course => course.advisor?.id === advisor.id)} year={year} amountPerCourse={amountPerCourse}></AdvisorStatementPdf>}
     </>
   )
 }
