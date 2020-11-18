@@ -1,11 +1,11 @@
 import React, { ReactElement, useState, createContext } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import './App.css';
 import MainView from './views/MainView';
 import { AdvisorMap } from "./models/advisor"
 import { Course } from "./models/course"
 import { ImportResult } from './components/DSVImport';
 import { AdvisorStatementPdfView } from './views/AdivsorStatementPdfView';
+import './App.css'
 
 export type AppState = {
   courses: Course[];
@@ -22,10 +22,10 @@ function App(): ReactElement {
 
   return (
     <AppContext.Provider value={state}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Switch>
-          <Route exact path="/" children={<MainView onImport={handleImport}></MainView>}></Route>
           <Route path="/advisors/:id" children={<AdvisorStatementPdfView></AdvisorStatementPdfView>}></Route>
+          <Route children={<MainView onImport={handleImport}></MainView>}></Route>
         </Switch>
       </Router>
     </AppContext.Provider>
