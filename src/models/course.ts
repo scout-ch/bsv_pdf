@@ -6,7 +6,7 @@ export class NoCourseNumberError extends Error {
 
 export class CourseNumber {
   cantonalAssociation?: string;
-  regionalAssociation: string
+  regionalAssociation: string;
   year: number
   kind: number
   countNumber: number
@@ -16,11 +16,17 @@ export class CourseNumber {
     const match = regex.exec(courseNumberString)
     if (!match) throw new NoCourseNumberError('Not a course number')
 
-    this.cantonalAssociation = match[2]
+    this.cantonalAssociation = match[2]?.toUpperCase()
     this.kind = +match[3]
     this.regionalAssociation = match[4]
     this.countNumber = +match[5]
     this.year = +match[6]
+  }
+
+  association(): string {
+    if (!this.cantonalAssociation || this.cantonalAssociation === '') return 'CH';
+    if (this.cantonalAssociation === 'ZH') return `ZH-${this.regionalAssociation}`;
+    return this.cantonalAssociation || '';
   }
 
   toString(): string {
@@ -37,17 +43,17 @@ export type Course = {
   firstCourseDate: string;
   lastCourseDate: string;
   location: string;
-  trainingDays: string;
-  bsvDays: string;
-  bsvEligibleParticipationsCount: string;
-  bsvEligibleAttendances: string;
+  trainingDays: number;
+  bsvDays: number;
+  bsvEligibleParticipationsCount: number;
+  bsvEligibleAttendances: number;
   bsvEligibleAttendance: Attendance[];
   leaderCount: string;
-  allParticipantsCount: string;
+  allParticipantsCount: number;
   allParticipantsAttendanceSummary: string;
-  allParticipantsAttendances: string;
+  allParticipantsAttendances: number;
   allParticipantsAttendance: Attendance[];
-  cantonsCount: string;
-  languagesCount: string;
+  cantonsCount: number;
+  languagesCount: number;
   advisor?: Advisor;
 }

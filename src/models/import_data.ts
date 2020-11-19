@@ -1,4 +1,4 @@
-import { Advisor } from "./advisor";
+import { Advisor, AdvisorMap } from "./advisor";
 import { Attendance } from "./attendance";
 import { Course, CourseNumber, NoCourseNumberError } from "./course";
 
@@ -12,6 +12,12 @@ export type ImportTupel = [
   string, string, string, string, string, string, string, string, string, string
 ]
 
+export type ImportResult = {
+  courses: Course[];
+  advisors: AdvisorMap;
+  cantons: Set<string>;
+}
+
 export function extractCourse(tupel: ImportTupel): Course | null {
   try {
     return {
@@ -22,18 +28,18 @@ export function extractCourse(tupel: ImportTupel): Course | null {
       firstCourseDate: tupel[6],
       lastCourseDate: tupel[7],
       location: tupel[8],
-      trainingDays: tupel[9],
-      bsvDays: tupel[10],
-      bsvEligibleParticipationsCount: tupel[11],
-      bsvEligibleAttendances: tupel[13],
+      trainingDays: parseInt(tupel[9]),
+      bsvDays: parseInt(tupel[10]),
+      bsvEligibleParticipationsCount: parseInt(tupel[11]),
+      bsvEligibleAttendances: parseInt(tupel[13]),
       bsvEligibleAttendance: Attendance.fromAttendanceSummary(tupel[12]),
       leaderCount: tupel[14],
-      allParticipantsCount: tupel[15],
+      allParticipantsCount: parseInt(tupel[15]),
       allParticipantsAttendanceSummary: tupel[16],
-      allParticipantsAttendances: tupel[17],
+      allParticipantsAttendances: parseInt(tupel[17]),
       allParticipantsAttendance: Attendance.fromAttendanceSummary(tupel[16]),
-      cantonsCount: tupel[18],
-      languagesCount: tupel[19]
+      cantonsCount: parseInt(tupel[18]),
+      languagesCount: parseInt(tupel[19])
     }
   } catch (e) {
     if (e instanceof NoCourseNumberError) {
@@ -58,4 +64,24 @@ export function extractAdvisor(tupel: ImportTupel): Advisor | null {
     tupel[27],
     tupel[28],
     tupel[29]);
+}
+
+export const transform = (data: ImportTupel[]): ImportResult => {
+  const advisors: AdvisorMap = {}
+  const cantons: Set<string> = new Set<string>();
+  const courses: Course[] = data.reduce((result: Course[], tupel) => {
+    const advisorId = tupel[20]
+    if (!advisors[advisorId]) {
+      const newAdvisor = extractAdvisor(tupel);
+      newAdvisor && (advisors[advisorId] = newAdvisor)
+    }
+    const advisor = advisors[advisorId];
+    const course = extractCourse(tupel)
+    const canton = course && course.courseNumber.association()
+    course && result.push({ advisor, ...course })
+    canton && cantons.add(canton)
+    return result
+  }, [])
+
+  return { courses, advisors, cantons }
 }

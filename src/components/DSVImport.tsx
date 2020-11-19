@@ -1,36 +1,12 @@
-import React from 'react';
-import { extractAdvisor, extractCourse, ImportTupel } from '../models/import_data'
-import { AdvisorMap } from '../models/advisor';
-import { Course } from '../models/course';
+import React, { FunctionComponent } from 'react';
+import { transform, ImportResult, ImportTupel } from '../models/import_data'
 import { parse } from 'papaparse';
 
-export type ImportResult = {
-  courses: Course[];
-  advisors: AdvisorMap;
-}
-
-const transform = (data: ImportTupel[]): ImportResult => {
-  const advisors: AdvisorMap = {}
-  const courses: Course[] = data.reduce((result: Course[], tupel) => {
-    const advisorId = tupel[20]
-    if (!advisors[advisorId]) {
-      const newAdvisor = extractAdvisor(tupel);
-      newAdvisor && (advisors[advisorId] = newAdvisor)
-    }
-    const advisor = advisors[advisorId];
-    const course = extractCourse(tupel)
-    course && result.push({ advisor, ...course })
-    return result
-  }, [])
-
-  return { courses, advisors }
-}
-
-export interface Props {
+export interface DSVImportProps {
   onChange?: (value: ImportResult) => void;
 }
 
-export const DSVImport = ({ onChange }: Props): React.ReactElement<Props> => {
+export const DSVImport: FunctionComponent<DSVImportProps> = ({ onChange }) => {
 
   const reader = new FileReader()
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

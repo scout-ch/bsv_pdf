@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement } from 'react';
 import signature from '../../images/signature.png'
 import styles from './AdvisorStatementPdf.module.css'
-import { AdvisorStatement } from '../../models/advisor_statement'
+import { AdvisorStatement } from './advisor_statement'
 
-export function AdvisorStatementPdf({ advisor, courses, year, amountPerCourse }: AdvisorStatement): ReactElement {
+export const AdvisorStatementPdf: FunctionComponent<AdvisorStatement> = ({ advisor, courses, year, amountPerParticipant }) => {
   return (
     <div className={styles.document}>
       <p>
@@ -29,7 +29,7 @@ export function AdvisorStatementPdf({ advisor, courses, year, amountPerCourse }:
               <td>{course.courseNumber.toString()}</td>
               <td>{course.kind}</td>
               <td>{course.kind}</td>
-              <td className={styles.right}>{amountPerCourse.toFixed(2)}</td>
+              <td className={styles.right}>{amountPerParticipant.toFixed(2)}</td>
             </tr>)
           })}
         </tbody>
@@ -38,7 +38,7 @@ export function AdvisorStatementPdf({ advisor, courses, year, amountPerCourse }:
             <td></td>
             <td></td>
             <td>{'Total'}</td>
-            <td className={styles.right}>{(courses.length * amountPerCourse).toFixed(2)}</td>
+            <td className={styles.right}>{(courses.length * amountPerParticipant).toFixed(2)}</td>
           </tr>
         </tfoot>
       </table>

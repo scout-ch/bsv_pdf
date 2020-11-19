@@ -1,48 +1,115 @@
-import React, { ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement } from 'react';
 import signature from '../../images/signature.png'
-import styles from './AdvisorStatementPdf.module.css'
-import { AdvisorStatement } from '../../models/advisor_statement'
+import styles from './CantonStatementPdf.module.css'
+import { CantonStatement } from './canton_statement'
 
-export function AdvisorStatementPdf({ advisor, courses, year, amountPerCourse }: AdvisorStatement): ReactElement {
+interface CantonStatementPdfProps {
+  statement: CantonStatement;
+}
+
+export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({ statement }) => {
+  // SEPARATOR = "\u2063".freeze
+
+  const { courses, year, canton, amountPerParticipant } = statement
+
   return (
     <div className={styles.document}>
-      <p>
-        {`${advisor.firstName} ${advisor.lastName}`}<br />
-        {`${advisor.address}`}<br />
-        {`${advisor.zipcode} ${advisor.town} ${advisor.country}`}<br />
-      </p>
-      <h1 className={styles.title}>{`LKB Entschädigung ${year}`}</h1>
-      <p>{advisor.salutation}</p>
-      <p>{"Im vergangenen Jahr hast Du die unten aufgeführten Kurse betreut. Dafür erhälst Du heute die LKB Entschädigung."}</p>
+      <p>{`Bern, ${(new Date()).toLocaleDateString('de-CH')}`}</p>
+      <h1 className={styles.title}>{`Auszahlung der Kurs-Subventionen des KV ${canton} ${year}`}</h1>
+      <p>{"In diesen Tagen können wir Euch die Kurs-Subventionen des BSV für die bis heute abgerechneten Kurse überweisen. Wir bitten Euch, Euren Kassierer darüber zu informieren."}</p>
+      <p>{`Der Tagesansatz ist aktuell CHF ${amountPerParticipant} / TN`}</p>
+      <p>{"Ohne Euren Gegenbericht innert 20 Tagen gehen wir davon aus, dass Ihr mit den unten aufgeführten Angaben einverstanden seid."}</p>
+
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>{'Kursschlüssel'}</th>
-            <th>{'Kursart J+S LS/T'}</th>
-            <th>{'PBS Kursart'}</th>
-            <th className={styles.right}>{'Entschädigung'}</th>
+            <th>{'Kursnummer'}<br />{'Kursnummer'}</th>
+            <th>{'erster Kurstag'}<br />{'letzter Kurstag'}</th>
+            <th className={styles.center}>{'# Tn'}</th>
+            <th className={styles.center}>{'Tage'}</th>
+            <th className={styles.center}>{'Tage\nx Tn'}</th>
+            <th className={styles.center}>{'Total Tage'}<br />{'Tn'}</th>
+            <th className={styles.right}>{'BSV Beitrag'}<br />{'für Tn'}</th>
+            <th className={styles.right}>{'Total BSV'}<br />{'Beitrag'}</th>
           </tr>
         </thead>
         <tbody>
           {courses.map<ReactElement>(course => {
-            return (<tr>
-              <td>{course.courseNumber.toString()}</td>
-              <td>{course.kind}</td>
-              <td>{course.kind}</td>
-              <td className={styles.right}>{amountPerCourse.toFixed(2)}</td>
-            </tr>)
+            const attendances = Array.from(course.bsvEligibleAttendance)
+            const attendance1 = attendances.shift()
+            const attendance2 = attendances.shift()
+            return (
+              <>
+                <tr>
+                  <td><strong>{course.courseNumber.toString()}</strong></td>
+                  <td>{course.firstCourseDate}</td>
+                  <td className={styles.center}>{attendance1?.count}</td>
+                  <td className={styles.center}>{attendance1?.days}</td>
+                  <td className={styles.center}>{attendance1?.total()}</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>{course.kind}</td>
+                  <td>{course.lastCourseDate}</td>
+                  <td className={styles.center}>{attendance2?.count}</td>
+                  <td className={styles.center}>{attendance2?.days}</td>
+                  <td className={styles.center}>{attendance2?.total()}</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                {attendances.map(attendance => (
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td className={styles.center}>{attendance.count}</td>
+                    <td className={styles.center}>{attendance.days}</td>
+                    <td className={styles.center}>{attendance.total()}</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                ))}
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr className={styles.separator}>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td className={styles.center}>{course.bsvEligibleAttendances}</td>
+                  <td className={styles.right}>{(course.bsvEligibleAttendances * amountPerParticipant).toFixed(2)}</td>
+                  <td className={styles.right}>{(course.bsvEligibleAttendances * amountPerParticipant).toFixed(2)}</td>
+                </tr>
+              </>
+            )
           })}
         </tbody>
         <tfoot>
           <tr>
             <td></td>
             <td></td>
-            <td>{'Total'}</td>
-            <td className={styles.right}>{(courses.length * amountPerCourse).toFixed(2)}</td>
+            <td></td>
+            <td></td>
+            <td className={styles.center}>{'Total'}</td>
+            <td className={styles.right}>{statement.totalAttendanceCount()}</td>
+            <td className={styles.right}>{statement.totalAmount().toFixed(2)}</td>
+            <td className={styles.right}>{statement.totalAmount().toFixed(2)}</td>
           </tr>
         </tfoot>
       </table>
-      <p>{"Nochmals besten Dank für Deinen Einsatz als Leiterkursbetreuer sowie für die Begeisterung und die Zeit, die Du dafür einsetzt. Ich hoffe sehr, dass wir auch in Zukunft auf Deine Hilfe zählen können."}</p>
+      <p>{"Für die Beantwortung von Fragen stehen wir Euch gerne zur Verfügung"}</p>
       <p>{"Mit herzlichen Pfadigrüssen"}</p>
       <img className={styles.signature} src={signature} alt="Signature" />
       <p>
