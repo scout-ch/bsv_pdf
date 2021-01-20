@@ -23,7 +23,7 @@ export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>{'Kursnummer'}<br />{'Kursnummer'}</th>
+            <th>{'Kursnummer'}<br />{'Kursbezeichnung'}</th>
             <th>{'erster Kurstag'}<br />{'letzter Kurstag'}</th>
             <th className={styles.center}>{'# Tn'}</th>
             <th className={styles.center}>{'Tage'}</th>
