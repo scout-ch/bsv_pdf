@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import signature from '../../images/signature.png'
 import styles from './CantonStatementPdf.module.css'
 import { CantonStatement } from './canton_statement'
+import { Footer } from '../Footer'
 
 interface CantonStatementPdfProps {
   statement: CantonStatement;
@@ -109,15 +109,7 @@ export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({
           </tr>
         </tfoot>
       </table>
-      <p>{"Für die Beantwortung von Fragen stehen wir Euch gerne zur Verfügung"}</p>
-      <p>{"Mit herzlichen Pfadigrüssen"}</p>
-      <img className={styles.signature} src={signature} alt="Signature" />
-      <p>
-        {`Sonja Dietrich`}<br />
-        {"Ausbildungssekretariat PBS"}<br />
-        {"Direktwahl: 031 328 05 42"}<br />
-        {"E-Mail: sonja.dietrich@pbs.ch"}
-      </p>
+      <Footer></Footer>
     </div >
   )
 }

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import signature from '../../images/signature.png'
 import styles from './AdvisorStatementPdf.module.css'
 import { AdvisorStatement } from './advisor_statement'
+import { Footer } from '../Footer'
 
 export const AdvisorStatementPdf: FunctionComponent<AdvisorStatement> = ({ advisor, courses, year, amountPerParticipant }) => {
   return (
@@ -43,14 +43,7 @@ export const AdvisorStatementPdf: FunctionComponent<AdvisorStatement> = ({ advis
         </tfoot>
       </table>
       <p>{"Nochmals besten Dank für Deinen Einsatz als Leiterkursbetreuer sowie für die Begeisterung und die Zeit, die Du dafür einsetzt. Ich hoffe sehr, dass wir auch in Zukunft auf Deine Hilfe zählen können."}</p>
-      <p>{"Mit herzlichen Pfadigrüssen"}</p>
-      <img className={styles.signature} src={signature} alt="Signature" />
-      <p>
-        {`Sonja Dietrich`}<br />
-        {"Ausbildungssekretariat PBS"}<br />
-        {"Direktwahl: 031 328 05 42"}<br />
-        {"E-Mail: sonja.dietrich@pbs.ch"}
-      </p>
+      <Footer></Footer>
     </div >
   )
 }

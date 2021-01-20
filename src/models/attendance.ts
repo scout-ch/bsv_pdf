@@ -3,7 +3,7 @@ export class Attendance {
   days: number
   count: number
 
-  constructor(days: number = 0, count: number = 0) {
+  constructor(count: number = 0, days: number = 0) {
     this.count = count
     this.days = days
   }
