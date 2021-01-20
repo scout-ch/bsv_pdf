@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { AppState, AppContext } from "../App";
 import { CantonStatementPdf } from "../components/Canton/CantonStatementPdf";
-import { CantonStatement } from "../components/Canton/canton_statement";
+import { CantonStatement } from "../models/canton_statement";
 
 export type CantonStatementPdfViewParams = {
   id: string;

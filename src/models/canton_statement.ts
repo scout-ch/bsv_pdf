@@ -1,4 +1,4 @@
-import { Course } from "../../models/course";
+import { Course } from "./course";
 
 
 export class CantonStatement {

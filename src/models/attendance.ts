@@ -15,7 +15,7 @@ export class Attendance {
   static fromAttendanceSummary(participationsString: string): Attendance[] {
     return participationsString.split(',').map(participationString => {
       const values = participationString.split('x')
-      return new Attendance(+values[0], +values[1])
+      return new Attendance(parseFloat(values[0]), parseFloat(values[1]))
     })
   }
 }
