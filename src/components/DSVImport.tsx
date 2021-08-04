@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import { transform, ImportResult, ImportTupel } from '../models/import_data'
+import { ImportTupel } from '../models/import_data'
 import { parse } from 'papaparse';
 
 export interface DSVImportProps {
-  onChange?: (value: ImportResult) => void;
+  onChange: (value: ImportTupel[]) => void;
 }
 
 export const DSVImport: FunctionComponent<DSVImportProps> = ({ onChange }) => {
@@ -15,9 +15,7 @@ export const DSVImport: FunctionComponent<DSVImportProps> = ({ onChange }) => {
   };
   reader.onload = (event) => {
     parse(event.target?.result as string, {
-      complete: ({ data }: { data: ImportTupel[] }) => {
-        onChange && onChange(transform(data));
-      }
+      complete: ({ data }: { data: ImportTupel[] }) => onChange(data)
     });
   }
 

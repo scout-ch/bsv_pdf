@@ -1,4 +1,6 @@
-export class Advisor {
+import { Course } from "./course"
+
+export type Advisor = {
   id: string;
   firstName: string;
   lastName: string;
@@ -9,24 +11,17 @@ export class Advisor {
   country: string;
   email: string;
   salutation: string;
-
-  constructor(id: string, firstName: string, lastName: string, scoutName: string, address: string, zipcode: string, town: string, country: string, email: string, salutation: string) {
-    this.id = id
-    this.firstName = firstName
-    this.lastName = lastName
-    this.scoutName = scoutName
-    this.address = address
-    this.zipcode = zipcode
-    this.town = town
-    this.country = country
-    this.email = email
-    this.salutation = salutation
-  }
-
-  toString() {
-    return `${this.firstName} ${this.lastName} / ${this.scoutName}`
-  }
 }
 
+export function advisorName(advisor: Advisor) {
+  return `${advisor.firstName} ${advisor.lastName} / ${advisor.scoutName}`
+}
+
+export type AdvisorStatement = {
+  advisor: Advisor;
+  courses: Course[];
+  year: number;
+  amountPerParticipant: number;
+}
 
 export type AdvisorMap = { [key: string]: Advisor }

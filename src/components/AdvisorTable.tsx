@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Advisor } from '../models/advisor'
+import { Advisor, advisorName } from '../models/advisor'
 import { Link } from 'react-router-dom'
 
 type Props = {
@@ -13,7 +13,7 @@ export function AdvisorTable({ advisors }: Props): ReactElement {
       <tbody>
         {advisors.map(advisor => (
           <tr key={advisor.id || Math.random() * 10000000}>
-            <td>{advisor.toString()}</td>
+            <td>{advisorName(advisor)}</td>
             <td><Link to={`/advisors/${advisor.id}`}>PDF</Link></td>
           </tr>
         ))}

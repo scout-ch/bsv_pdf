@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 
 type CourseTableProps = {
-  cantons: Set<string>;
+  cantons: string[];
 }
 
 export const CantonTable: FunctionComponent<CourseTableProps> = ({ cantons }) => {
@@ -10,7 +10,7 @@ export const CantonTable: FunctionComponent<CourseTableProps> = ({ cantons }) =>
     <table>
       <thead></thead>
       <tbody>
-        {Array.from(cantons).map(canton => (
+        {cantons.map(canton => (
           <tr key={canton}>
             <td>{canton}</td>
             <td><Link to={`/cantons/${canton}`}>PDF</Link></td>

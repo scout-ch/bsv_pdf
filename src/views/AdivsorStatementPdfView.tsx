@@ -1,16 +1,16 @@
-import React, { FunctionComponent, useContext } from "react";
+import React from "react";
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
-import { AppState, AppContext } from "../App";
 import { AdvisorStatementPdf } from "../components/Advisor/AdvisorStatementPdf";
+import { useStore } from "../store";
 
 export type AdvisorStatementPdfViewParams = {
   id: string;
 }
 
-export const AdvisorStatementPdfView: FunctionComponent<{}> = () => {
+export function AdvisorStatementPdfView() {
   const { id } = useParams<AdvisorStatementPdfViewParams>()
-  const { courses, advisors, amountPerParticipant, year } = useContext<AppState>(AppContext)
+  const { courses, advisors, amountPerParticipant, year } = useStore()
   const advisor = advisors[id]
 
   return (

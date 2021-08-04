@@ -1,20 +1,13 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React from 'react';
 import { DSVImport } from '../components/DSVImport';
 import { CourseTable } from '../components/CourseTable';
 import { AdvisorTable } from '../components/AdvisorTable';
-import { AppContext } from '../App';
 import { Container } from '../components/Layout';
 import { CantonTable } from '../components/CantonTable';
-import { ImportResult } from '../models/import_data';
+import { useStore } from '../store';
 
-export interface MainViewProps {
-  onDataImport?(value: ImportResult): void
-  onAmountChange?(value: number): void
-  onYearChange?(value: number): void
-}
-
-export const MainView: FunctionComponent<MainViewProps> = ({ onDataImport, onAmountChange, onYearChange }) => {
-  const { courses, advisors, amountPerParticipant, year, cantons } = useContext(AppContext);
+export function MainView() {
+  const { courses, advisors, amountPerParticipant, year, cantons, importData, setAmountPerParticipant, setYear } = useStore();
 
   return (
     <Container>
@@ -23,16 +16,16 @@ export const MainView: FunctionComponent<MainViewProps> = ({ onDataImport, onAmo
         <div className="space-between">
           <label>
             <div>Datei</div>
-            <DSVImport onChange={(value) => onDataImport && onDataImport(value)}></DSVImport>
+            <DSVImport onChange={(value) => importData(value)}></DSVImport>
           </label>
 
           <label>
             <div>Betrag pro Tn</div>
-            <input type="number" step="0.1" value={amountPerParticipant} onChange={(event) => onAmountChange && onAmountChange(parseFloat(event.target.value))} />
+            <input type="number" step="0.1" value={amountPerParticipant} onChange={(event) => setAmountPerParticipant(parseFloat(event.target.value))} />
           </label>
           <label>
             <div>Jahr</div>
-            <input type="number" step="1" value={year} onChange={(event) => onYearChange && onYearChange(parseInt(event.target.value))} />
+            <input type="number" step="1" value={year} onChange={(event) => setYear(parseInt(event.target.value))} />
           </label>
         </div>
         <h2>Kurse</h2>

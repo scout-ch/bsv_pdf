@@ -1,18 +1,19 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { Course } from '../models/course'
+import { formatCourseNumber } from "../models/course_number"
 
 type CourseTableProps = {
   courses: Course[];
 }
 
-export const CourseTable = ({ courses }: CourseTableProps): ReactElement => {
+export function CourseTable({ courses }: CourseTableProps) {
   return (
     <table>
       <thead></thead>
       <tbody>
         {courses.map(course => (
-          <tr key={course.courseNumber.toString()}>
-            <td>{course.courseNumber.toString()}</td>
+          <tr key={formatCourseNumber(course.courseNumber)}>
+            <td>{formatCourseNumber(course.courseNumber)}</td>
             <td>{course.courseNumber.cantonalAssociation}</td>
             <td>{course.kind}</td>
             <td>

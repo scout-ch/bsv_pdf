@@ -1,6 +1,8 @@
+import { AppState } from "../store";
 import { Advisor, AdvisorMap } from "./advisor";
-import { Attendance } from "./attendance";
-import { Course, CourseNumber, NoCourseNumberError } from "./course";
+import { getAttendancesFromSummary } from "./attendance";
+import { Course } from "./course"
+import { parseCourseNumber, getAssociation, NoCourseNumberError } from "./course_number";
 
 export function getAdvisorId(tupel: ImportTupel): string {
   return tupel[20]
@@ -12,19 +14,13 @@ export type ImportTupel = [
   string, string, string, string, string, string, string, string, string, string
 ]
 
-export type ImportResult = {
-  courses: Course[];
-  advisors: AdvisorMap;
-  cantons: Set<string>;
-}
-
 export function extractCourse(tupel: ImportTupel): Course | null {
   try {
     return {
       agreementIdFiver: tupel[0],
       courseIdFiver: tupel[1],
       kind: tupel[2],
-      courseNumber: new CourseNumber(tupel[5]),
+      courseNumber: parseCourseNumber(tupel[5]),
       firstCourseDate: tupel[6],
       lastCourseDate: tupel[7],
       location: tupel[8],
@@ -32,12 +28,12 @@ export function extractCourse(tupel: ImportTupel): Course | null {
       bsvDays: parseFloat(tupel[10]),
       bsvEligibleParticipationsCount: parseFloat(tupel[11]),
       bsvEligibleAttendances: parseFloat(tupel[13]),
-      bsvEligibleAttendance: Attendance.fromAttendanceSummary(tupel[12]),
+      bsvEligibleAttendance: getAttendancesFromSummary(tupel[12]),
       leaderCount: tupel[14],
       allParticipantsCount: parseFloat(tupel[15]),
       allParticipantsAttendanceSummary: tupel[16],
       allParticipantsAttendances: parseFloat(tupel[17]),
-      allParticipantsAttendance: Attendance.fromAttendanceSummary(tupel[16]),
+      allParticipantsAttendance: getAttendancesFromSummary(tupel[16]),
       cantonsCount: parseInt(tupel[18]),
       languagesCount: parseInt(tupel[19])
     }
@@ -53,20 +49,21 @@ export function extractCourse(tupel: ImportTupel): Course | null {
 
 export function extractAdvisor(tupel: ImportTupel): Advisor | null {
   if (!tupel[20]) return null;
-  return new Advisor(
-    tupel[20],
-    tupel[21],
-    tupel[22],
-    tupel[23],
-    tupel[24],
-    tupel[25],
-    tupel[26],
-    tupel[27],
-    tupel[28],
-    tupel[29]);
+  return {
+    id: tupel[20],
+    firstName: tupel[21],
+    lastName: tupel[22],
+    scoutName: tupel[23],
+    address: tupel[24],
+    zipcode: tupel[25],
+    town: tupel[26],
+    country: tupel[27],
+    email: tupel[28],
+    salutation: tupel[29]
+  };
 }
 
-export const transform = (data: ImportTupel[]): ImportResult => {
+export function transform(data: ImportTupel[]): Partial<AppState> {
   const advisors: AdvisorMap = {}
   const cantons: Set<string> = new Set<string>();
   const courses: Course[] = data.reduce((result: Course[], tupel) => {
@@ -77,11 +74,16 @@ export const transform = (data: ImportTupel[]): ImportResult => {
     }
     const advisor = advisors[advisorId];
     const course = extractCourse(tupel)
-    const canton = course && course.courseNumber.association()
-    course && result.push({ advisor, ...course })
-    canton && cantons.add(canton)
+    console.log(course)
+
+    if (course) {
+      result.push({ advisor, ...course })
+      const canton = getAssociation(course.courseNumber)
+      canton && cantons.add(canton)
+    }
+
     return result
   }, [])
 
-  return { courses, advisors, cantons }
+  return { courses, advisors, cantons: Array.from(cantons) }
 }

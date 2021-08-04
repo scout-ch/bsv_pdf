@@ -1,7 +1,8 @@
 import React, { FunctionComponent, ReactElement } from "react";
 import styles from "./AdvisorStatementPdf.module.css";
-import { AdvisorStatement } from "../../models/advisor_statement";
+import { AdvisorStatement } from "../../models/advisor";
 import { Footer } from "../Footer";
+import { formatCourseNumber } from "../../models/course_number";
 
 export const AdvisorStatementPdf: FunctionComponent<AdvisorStatement> = ({
   advisor,
@@ -39,7 +40,7 @@ export const AdvisorStatementPdf: FunctionComponent<AdvisorStatement> = ({
           {courses.map<ReactElement>((course) => {
             return (
               <tr>
-                <td>{course.courseNumber.toString()}</td>
+                <td>{formatCourseNumber(course.courseNumber)}</td>
                 <td>{course.kind}</td>
                 <td>{course.kind}</td>
                 <td className={styles.right}>

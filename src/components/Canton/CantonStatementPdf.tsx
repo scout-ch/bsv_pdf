@@ -1,15 +1,17 @@
-import React, { FunctionComponent, ReactElement } from "react";
+import React from "react";
 import styles from "./CantonStatementPdf.module.css";
-import { CantonStatement } from "../../models/canton_statement";
+import { CantonStatement, totalAttendanceCount, totalAmount } from "../../models/canton_statement";
 import { Footer } from "../Footer";
+import { totalAttendance } from "../../models/attendance"
+import { formatCourseNumber } from "../../models/course_number";
 
 interface CantonStatementPdfProps {
   statement: CantonStatement;
 }
 
-export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({
+export function CantonStatementPdf({
   statement,
-}) => {
+}: CantonStatementPdfProps) {
   const { courses, year, canton, amountPerParticipant } = statement;
 
   return (
@@ -64,7 +66,7 @@ export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({
           </tr>
         </thead>
         <tbody>
-          {courses.map<ReactElement>((course) => {
+          {courses.map((course) => {
             const attendances = Array.from(course.bsvEligibleAttendance);
             const attendance1 = attendances.shift();
             const attendance2 = attendances.shift();
@@ -72,12 +74,12 @@ export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({
               <>
                 <tr>
                   <td>
-                    <strong>{course.courseNumber.toString()}</strong>
+                    <strong>{formatCourseNumber(course.courseNumber)}</strong>
                   </td>
                   <td>{course.firstCourseDate}</td>
                   <td className={styles.center}>{attendance1?.count}</td>
                   <td className={styles.center}>{attendance1?.days}</td>
-                  <td className={styles.center}>{attendance1?.total()}</td>
+                  <td className={styles.center}>{attendance1 ? totalAttendance(attendance1) : ''}</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
@@ -87,7 +89,7 @@ export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({
                   <td>{course.lastCourseDate}</td>
                   <td className={styles.center}>{attendance2?.count}</td>
                   <td className={styles.center}>{attendance2?.days}</td>
-                  <td className={styles.center}>{attendance2?.total()}</td>
+                  <td className={styles.center}>{attendance2 ? totalAttendance(attendance2) : ''}</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
@@ -98,7 +100,7 @@ export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({
                     <td>&nbsp;</td>
                     <td className={styles.center}>{attendance.count}</td>
                     <td className={styles.center}>{attendance.days}</td>
-                    <td className={styles.center}>{attendance.total()}</td>
+                    <td className={styles.center}>{attendance ? totalAttendance(attendance) : ''}</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -145,12 +147,12 @@ export const CantonStatementPdf: FunctionComponent<CantonStatementPdfProps> = ({
             <td></td>
             <td></td>
             <td className={styles.center}>{"Total"}</td>
-            <td className={styles.center}>{statement.totalAttendanceCount()}</td>
+            <td className={styles.center}>{totalAttendanceCount(statement)}</td>
             <td className={styles.right}>
-              {statement.totalAmount().toFixed(2)}
+              {totalAmount(statement).toFixed(2)}
             </td>
             <td className={styles.right}>
-              {statement.totalAmount().toFixed(2)}
+              {totalAmount(statement).toFixed(2)}
             </td>
           </tr>
         </tfoot>

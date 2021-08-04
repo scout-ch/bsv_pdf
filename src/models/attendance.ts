@@ -1,22 +1,19 @@
 
-export class Attendance {
+export type Attendance = {
   days: number
   count: number
+}
 
-  constructor(count: number = 0, days: number = 0) {
-    this.count = count
-    this.days = days
-  }
+export function totalAttendance(attendance: Attendance) {
+  return attendance.days * attendance.count
+}
 
-  total() {
-    return this.days * this.count
-  }
-
-  static fromAttendanceSummary(participationsString: string): Attendance[] {
-    return participationsString.split(',').map(participationString => {
-      const values = participationString.split('x')
-      return new Attendance(parseFloat(values[0]), parseFloat(values[1]))
-    })
-  }
+export function getAttendancesFromSummary(participationsString: string): Attendance[] {
+  return participationsString.split(',').map(participationString => {
+    const values = participationString.split('x')
+    return {
+      count: parseFloat(values[0]), days: parseFloat(values[1])
+    }
+  })
 }
 

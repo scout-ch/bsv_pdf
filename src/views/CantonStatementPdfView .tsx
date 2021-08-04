@@ -1,18 +1,24 @@
-import React, { FunctionComponent, useContext } from "react";
+import React from "react";
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
-import { AppState, AppContext } from "../App";
 import { CantonStatementPdf } from "../components/Canton/CantonStatementPdf";
 import { CantonStatement } from "../models/canton_statement";
+import { useStore } from "../store";
+import { getAssociation } from "../models/course_number";
 
 export type CantonStatementPdfViewParams = {
   id: string;
 }
 
-export const CantonStatementPdfView: FunctionComponent = () => {
+export function CantonStatementPdfView() {
   const { id } = useParams<CantonStatementPdfViewParams>()
-  const { courses, amountPerParticipant, year } = useContext<AppState>(AppContext)
-  const cantonStatement = new CantonStatement(courses.filter(course => course.courseNumber?.association() === id.toUpperCase()), year, amountPerParticipant, id)
+  const { courses, amountPerParticipant, year } = useStore()
+  const cantonStatement: CantonStatement = {
+    courses: courses.filter(course => getAssociation(course.courseNumber).toLocaleUpperCase() === id.toUpperCase()),
+    year: year,
+    amountPerParticipant: amountPerParticipant,
+    canton: id
+  }
 
   return (
     <>
