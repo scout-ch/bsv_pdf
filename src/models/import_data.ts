@@ -74,7 +74,6 @@ export function transform(data: ImportTupel[]): Partial<AppState> {
     }
     const advisor = advisors[advisorId];
     const course = extractCourse(tupel)
-    console.log(course)
 
     if (course) {
       result.push({ advisor, ...course })

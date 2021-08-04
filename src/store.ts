@@ -25,7 +25,7 @@ export const useStore = create<AppState>(persist(
     setAmountPerParticipant: (value: number) => set((state) => ({ ...state, amountPerParticipant: value }))
   }),
   {
-    name: "bsv-pdf-storage", // unique name
-    getStorage: () => sessionStorage, // (optional) by default the 'localStorage' is used
+    name: "bsv-pdf-storage",
+    getStorage: () => sessionStorage,
   }
 ))
