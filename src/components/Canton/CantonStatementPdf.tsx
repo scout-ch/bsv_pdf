@@ -1,67 +1,57 @@
-import React from "react";
+import React from 'react'
 import styles from "./CantonStatementPdf.module.css";
 import { CantonStatement, totalAttendanceCount, totalAmount } from "../../models/canton_statement";
 import { Footer } from "../Footer";
 import { totalAttendance } from "../../models/attendance"
 import { formatCourseNumber } from "../../models/course_number";
+import { useTranslation } from 'react-i18next'
 
 interface CantonStatementPdfProps {
   statement: CantonStatement;
+  lng: string;
 }
 
 export function CantonStatementPdf({
-  statement,
+  statement, lng
 }: CantonStatementPdfProps) {
   const { courses, year, canton, amountPerParticipant } = statement;
+  const t = useTranslation().i18n.getFixedT(lng)
 
   return (
     <div className={styles.document}>
-      <p>{`Bern, ${new Date().toLocaleDateString("de-CH")}`}</p>
-      <h1
-        className={styles.title}
-      >{`Auszahlung der Kurs-Subventionen des KV ${canton} ${year}`}</h1>
-      <p>
-        {
-          "In diesen Tagen können wir Euch die Kurs-Subventionen des BSV für die bis heute abgerechneten Kurse überweisen. Wir bitten Euch, Euren Kassierer darüber zu informieren."
-        }
-      </p>
-      <p>{`Der Tagesansatz ist aktuell CHF ${amountPerParticipant} / TN`}</p>
-      <p>
-        {
-          "Ohne Euren Gegenbericht innert 20 Tagen gehen wir davon aus, dass Ihr mit den unten aufgeführten Angaben einverstanden seid."
-        }
-      </p>
-
+      <p>{t('CantonStatementPdf.locationDateHeader', { date: new Date().toLocaleDateString("de-CH") })}</p>
+      <h1 className={styles.title}>{t('CantonStatementPdf.title', { year, canton })}</h1>
+      <p>{t('CantonStatementPdf.text', { amountPerParticipant })}</p>
       <table className={styles.table}>
         <thead>
           <tr>
             <th>
-              {"Kursnummer"}
+              {t('CantonStatementPdf.Kursnummer')}
               <br />
-              {"Kursbezeichnung"}
+              {t('CantonStatementPdf.Kursbezeichnung')}
             </th>
             <th>
-              {"erster Kurstag"}
+              {t('CantonStatementPdf.ersterKurstag')}
               <br />
-              {"letzter Kurstag"}
+              {t('CantonStatementPdf.letzterKurstag')}
             </th>
-            <th className={styles.center}>{"# Tn"}</th>
-            <th className={styles.center}>{"Tage"}</th>
-            <th className={styles.center}>{"Tage\nx Tn"}</th>
+            <th className={styles.center}>{t('CantonStatementPdf.AnzTn')}</th>
+            <th className={styles.center}>{t('CantonStatementPdf.Tage')}</th>
+            <th className={styles.center}>{t('CantonStatementPdf.TageXTn')}</th>
             <th className={styles.center}>
-              {"Total Tage"}
+              {t('CantonStatementPdf.TotalTage')}
               <br />
-              {"Tn"}
+              {t('CantonStatementPdf.Tn')}
             </th>
             <th className={styles.right}>
-              {"BSV Beitrag"}
+              {t('CantonStatementPdf.BsvBeitrag')}
               <br />
-              {"für Tn"}
+              {t('CantonStatementPdf.fuerTn')}
             </th>
             <th className={styles.right}>
-              {"Total BSV"}
+              {t('CantonStatementPdf.TotalBsv')}
               <br />
-              {"Beitrag"}
+              {t('CantonStatementPdf.Beitrag')}
             </th>
           </tr>
         </thead>
@@ -146,7 +136,7 @@ export function CantonStatementPdf({
             <td></td>
             <td></td>
             <td></td>
-            <td className={styles.center}>{"Total"}</td>
+            <td className={styles.center}>{t("CantonStatementPdf.Total")}</td>
             <td className={styles.center}>{totalAttendanceCount(statement)}</td>
             <td className={styles.right}>
               {totalAmount(statement).toFixed(2)}
@@ -157,7 +147,7 @@ export function CantonStatementPdf({
           </tr>
         </tfoot>
       </table>
-      <Footer></Footer>
-    </div>
+      <Footer lng={lng}></Footer>
+    </div >
   );
 };

@@ -19,6 +19,10 @@ body {
   }
 }
 
+p {
+  white-space: pre-line;
+}
+
 .space-between {
   display: flex;
   justify-content: space-between;

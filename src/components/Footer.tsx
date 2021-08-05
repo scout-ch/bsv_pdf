@@ -1,18 +1,15 @@
 import * as React from 'react'
 import signature from '../images/signature.png'
 import styles from './styles.module.css'
+import { useTranslation } from 'react-i18next'
 
-export const Footer : React.FC = () => {
+export function Footer({ lng }: { lng: string }) {
+  const t = useTranslation().i18n.getFixedT(lng)
+
   return (
     <>
-      <p>{"Für die Beantwortung von Fragen stehen wir Euch gerne zur Verfügung"}</p>
-      <p>{"Mit herzlichen Pfadigrüssen"}</p>
+      <p>{t('Footer.Greeting')}</p>
       <img className={styles.signature} src={signature} alt="Signature" />
-      <p>
-        {`Emanuel Wyss / Tschagon`}<br />
-        {"Ausbildungssekretariat PBS"}<br />
-        {"Direktwahl: 031 328 05 42"}<br />
-        {"E-Mail: emanuel.wyss@pbs.ch"}
-      </p>
+      <p>{t('Footer.Address')}</p>
     </>);
 }

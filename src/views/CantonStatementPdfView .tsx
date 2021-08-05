@@ -5,6 +5,8 @@ import { CantonStatementPdf } from "../components/Canton/CantonStatementPdf";
 import { CantonStatement } from "../models/canton_statement";
 import { useStore } from "../store";
 import { getAssociation } from "../models/course_number";
+import { useTranslation } from 'react-i18next';
+import { cantonLng } from "../models/canton";
 
 export type CantonStatementPdfViewParams = {
   id: string;
@@ -13,8 +15,10 @@ export type CantonStatementPdfViewParams = {
 export function CantonStatementPdfView() {
   const { id } = useParams<CantonStatementPdfViewParams>()
   const { courses, amountPerParticipant, year } = useStore()
+  const { t } = useTranslation()
+  const lng = cantonLng(id)
   const cantonStatement: CantonStatement = {
-    courses: courses.filter(course => getAssociation(course.courseNumber).toLocaleUpperCase() === id.toUpperCase()),
+    courses: courses.filter(course => getAssociation(course.courseNumber).toUpperCase() === id.toUpperCase()),
     year: year,
     amountPerParticipant: amountPerParticipant,
     canton: id
@@ -23,11 +27,11 @@ export function CantonStatementPdfView() {
   return (
     <>
       <div className="no-print">
-        <Link to="/">Back</Link>
+        <Link to="/">{t('back')}</Link>
         <button onClick={() => window.print()}>Print</button>
       </div>
 
-      {cantonStatement && <CantonStatementPdf statement={cantonStatement}></CantonStatementPdf>}
+      {cantonStatement && <CantonStatementPdf lng={lng} statement={cantonStatement}></CantonStatementPdf>}
     </>
   )
 }

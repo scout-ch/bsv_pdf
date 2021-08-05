@@ -1,15 +1,17 @@
-import React, { FunctionComponent, ReactElement } from "react";
+import React from "react";
 import styles from "./AdvisorStatementPdf.module.css";
 import { AdvisorStatement } from "../../models/advisor";
 import { Footer } from "../Footer";
 import { formatCourseNumber } from "../../models/course_number";
+import { useTranslation } from "react-i18next";
 
-export const AdvisorStatementPdf: FunctionComponent<AdvisorStatement> = ({
-  advisor,
-  courses,
-  year,
-  amountPerParticipant,
-}) => {
+interface AdvisorStatementPdfProps extends AdvisorStatement {
+  lng: string;
+}
+
+export function AdvisorStatementPdf({ advisor, courses, year, amountPerParticipant, lng }: AdvisorStatementPdfProps) {
+  const t = useTranslation().i18n.getFixedT(lng)
+
   return (
     <div className={styles.document}>
       <p>
@@ -20,24 +22,21 @@ export const AdvisorStatementPdf: FunctionComponent<AdvisorStatement> = ({
         {`${advisor.zipcode} ${advisor.town} ${advisor.country}`}
         <br />
       </p>
-      <h1 className={styles.title}>{`LKB Entschädigung ${year}`}</h1>
+      <h1 className={styles.title}>{t('AdvisorStatementPdf.title', { year })}</h1>
       <p>{advisor.salutation}</p>
-      <p>
-        {
-          "Im vergangenen Jahr hast Du die unten aufgeführten Kurse betreut. Dafür erhälst Du heute die LKB Entschädigung."
-        }
+      <p>{t('AdvisorStatementPdf.text')}
       </p>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>{"Kursschlüssel"}</th>
-            <th>{"Kursart J+S LS/T"}</th>
-            <th>{"PBS Kursart"}</th>
-            <th className={styles.right}>{"Entschädigung"}</th>
+            <th>{t("AdvisorStatementPdf.Kursschluessel")}</th>
+            <th>{t("AdvisorStatementPdf.KursartJS")}</th>
+            <th>{t("AdvisorStatementPdf.KursartPBS")}</th>
+            <th className={styles.right}>{t("AdvisorStatementPdf.Entschaedingung")}</th>
           </tr>
         </thead>
         <tbody>
-          {courses.map<ReactElement>((course) => {
+          {courses.map((course) => {
             return (
               <tr>
                 <td>{formatCourseNumber(course.courseNumber)}</td>
@@ -54,19 +53,16 @@ export const AdvisorStatementPdf: FunctionComponent<AdvisorStatement> = ({
           <tr>
             <td></td>
             <td></td>
-            <td>{"Total"}</td>
+            <td>{t("AdvisorStatementPdf.Total")}</td>
             <td className={styles.right}>
               {(courses.length * amountPerParticipant).toFixed(2)}
             </td>
           </tr>
         </tfoot>
       </table>
-      <p>
-        {
-          "Nochmals besten Dank für Deinen Einsatz als Leiterkursbetreuer sowie für die Begeisterung und die Zeit, die Du dafür einsetzt. Ich hoffe sehr, dass wir auch in Zukunft auf Deine Hilfe zählen können."
-        }
+      <p>{t("AdvisorStatementPdf.thank")}
       </p>
-      <Footer></Footer>
+      <Footer lng={lng}></Footer>
     </div>
   );
 };

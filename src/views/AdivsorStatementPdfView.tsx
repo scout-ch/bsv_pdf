@@ -20,7 +20,7 @@ export function AdvisorStatementPdfView() {
         <button onClick={() => window.print()}>Print</button>
       </div>
 
-      {advisor && <AdvisorStatementPdf advisor={advisor} courses={courses.filter(course => course.advisor?.id === advisor.id)} year={year} amountPerParticipant={amountPerParticipant}></AdvisorStatementPdf>}
+      {advisor && <AdvisorStatementPdf lng='de' advisor={advisor} courses={courses.filter(course => course.advisor?.id === advisor.id)} year={year} amountPerParticipant={amountPerParticipant}></AdvisorStatementPdf>}
     </>
   )
 }
