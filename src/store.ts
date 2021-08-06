@@ -1,13 +1,11 @@
 import create from 'zustand'
 import { persist } from "zustand/middleware"
 import { Course } from './models/course'
-import { AdvisorMap } from './models/advisor'
 import { ImportTupel, transform } from './models/import_data'
 
 export type AppState = {
   courses: Course[];
   cantons: string[];
-  advisors: AdvisorMap;
   amountPerParticipant: number;
   year: number;
   importData: (value: ImportTupel[]) => void;

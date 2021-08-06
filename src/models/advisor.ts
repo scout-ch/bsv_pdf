@@ -23,5 +23,3 @@ export type AdvisorStatement = {
   year: number;
   amountPerParticipant: number;
 }
-
-export type AdvisorMap = { [key: string]: Advisor }

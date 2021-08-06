@@ -1,13 +1,12 @@
 import React from 'react';
 import { DSVImport } from '../components/DSVImport';
 import { CourseTable } from '../components/CourseTable';
-import { AdvisorTable } from '../components/AdvisorTable';
 import { Container } from '../components/Layout';
 import { CantonTable } from '../components/CantonTable';
 import { useStore } from '../store';
 
 export function MainView() {
-  const { courses, advisors, amountPerParticipant, year, cantons, importData, setAmountPerParticipant, setYear } = useStore();
+  const { courses, amountPerParticipant, year, cantons, importData, setAmountPerParticipant, setYear } = useStore();
 
   return (
     <Container>
@@ -32,8 +31,6 @@ export function MainView() {
         <CourseTable courses={courses}></CourseTable>
         <h2>Kantone</h2>
         <CantonTable cantons={cantons}></CantonTable>
-        <h2>LKB</h2>
-        <AdvisorTable advisors={Object.values(advisors)}></AdvisorTable>
       </div>
     </Container >
   );

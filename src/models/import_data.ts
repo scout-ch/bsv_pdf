@@ -1,5 +1,5 @@
 import { AppState } from "../store";
-import { Advisor, AdvisorMap } from "./advisor";
+import { Advisor } from "./advisor";
 import { getAttendancesFromSummary } from "./attendance";
 import { Course } from "./course"
 import { parseCourseNumber, getAssociation, NoCourseNumberError } from "./course_number";
@@ -64,7 +64,7 @@ export function extractAdvisor(tupel: ImportTupel): Advisor | null {
 }
 
 export function transform(data: ImportTupel[]): Partial<AppState> {
-  const advisors: AdvisorMap = {}
+  const advisors: { [key: string]: Advisor } = {}
   const cantons: Set<string> = new Set<string>();
   const courses: Course[] = data.reduce((result: Course[], tupel) => {
     const advisorId = tupel[20]
@@ -84,5 +84,5 @@ export function transform(data: ImportTupel[]): Partial<AppState> {
     return result
   }, [])
 
-  return { courses, advisors, cantons: Array.from(cantons) }
+  return { courses, cantons: Array.from(cantons) }
 }

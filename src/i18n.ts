@@ -5,16 +5,6 @@ const resources = {
   de: {
     translation: {
       "back": "Zurück",
-      "AdvisorStatementPdf": {
-        "title": "LKB Entschädigung {{year}}",
-        "text": `Im vergangenen Jahr hast Du die unten aufgeführten Kurse betreut. Dafür erhälst Du heute die LKB Entschädigung.`,
-        "Kursschluessel": "Kursschlüssel",
-        "KursartJS": "Kursart J+S LS/T",
-        "KursartPBS": "PBS Kursart",
-        "Entschaedigung": "Entschädigung",
-        "Total": "Total",
-        "thank": `Nochmals besten Dank für Deinen Einsatz als Leiterkursbetreuer sowie für die Begeisterung und die Zeit, die Du dafür einsetzt. Ich hoffe sehr, dass wir auch in Zukunft auf Deine Hilfe zählen können.`,
-      },
       "CantonStatementPdf": {
         "locationDateHeader": "Bern, {{date}}",
         "title": "Auszahlung der Kurs-Subventionen des KV {{canton}} {{year}}",
@@ -54,16 +44,6 @@ const resources = {
   fr: {
     translation: {
       "back": "Retour",
-      "AdvisorStatementPdf": {
-        "title": "LKB Entschädigung {{year}}",
-        "text": `Im vergangenen Jahr hast Du die unten aufgeführten Kurse betreut. Dafür erhälst Du heute die LKB Entschädigung.`,
-        "Kursschluessel": "Kursschlüssel",
-        "KursartJS": "Kursart J+S LS/T",
-        "KursartPBS": "PBS Kursart",
-        "Entschaedigung": "Entschädigung",
-        "Total": "Total",
-        "thank": `Nochmals besten Dank für Deinen Einsatz als Leiterkursbetreuer sowie für die Begeisterung und die Zeit, die Du dafür einsetzt. Ich hoffe sehr, dass wir auch in Zukunft auf Deine Hilfe zählen können.`,
-      },
       "CantonStatementPdf": {
         "locationDateHeader": "Berne, {{date}}",
         "title": "Versement des subventions de cours à l'AC {{canton}} {{year}}",
@@ -84,9 +64,9 @@ const resources = {
         "TageXTn": "Part. x jours",
         "TotalTage": "Total jours",
         "Tn": "Part.",
-        "BsvBeitrag": "subvent. OFC",
+        "BsvBeitrag": "subvent. OFAS",
         "fuerTn": "pour Part.",
-        "TotalBsv": "Total OFC",
+        "TotalBsv": "Total OFAS",
         "Beitrag": "subvent.",
         "Total": "Total"
 
