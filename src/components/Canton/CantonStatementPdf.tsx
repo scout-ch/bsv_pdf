@@ -5,6 +5,7 @@ import { Footer } from "../Footer";
 import { totalAttendance } from "../../models/attendance"
 import { formatCourseNumber } from "../../models/course_number";
 import { useTranslation } from 'react-i18next'
+import { calculateAmount, calculateFixcosts } from '../../models/course';
 
 interface CantonStatementPdfProps {
   statement: CantonStatement;
@@ -14,7 +15,7 @@ interface CantonStatementPdfProps {
 export function CantonStatementPdf({
   statement, lng
 }: CantonStatementPdfProps) {
-  const { courses, year, canton, amountPerParticipant } = statement;
+  const { courses, year, canton, amountPerParticipant, fixcostsPerParticipant } = statement;
   const t = useTranslation().i18n.getFixedT(lng)
 
   return (
@@ -60,6 +61,9 @@ export function CantonStatementPdf({
             const attendances = Array.from(course.bsvEligibleAttendance);
             const attendance1 = attendances.shift();
             const attendance2 = attendances.shift();
+            const fixcosts = calculateFixcosts(course, fixcostsPerParticipant)
+            const amount = calculateAmount(course, amountPerParticipant, fixcostsPerParticipant)
+
             return (
               <>
                 <tr>
@@ -106,7 +110,7 @@ export function CantonStatementPdf({
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                 </tr>
-                <tr className={styles.separator}>
+                <tr>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
@@ -120,10 +124,29 @@ export function CantonStatementPdf({
                       course.bsvEligibleAttendances * amountPerParticipant
                     ).toFixed(2)}
                   </td>
+                  <td>&nbsp;</td>
+                </tr>
+                {fixcosts > 0 && <tr>
+                  <td>
+                    {t('CantonStatementPdf.Kosten')}</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td className={styles.right}>{(-fixcosts).toFixed(2)}</td>
+                </tr>}
+                <tr className={styles.separator}>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
                   <td className={styles.right}>
-                    {(
-                      course.bsvEligibleAttendances * amountPerParticipant
-                    ).toFixed(2)}
+                    {amount.toFixed(2)}
                   </td>
                 </tr>
               </>

@@ -14,13 +14,14 @@ export type CantonStatementPdfViewParams = {
 
 export function CantonStatementPdfView() {
   const { id } = useParams<CantonStatementPdfViewParams>()
-  const { courses, amountPerParticipant, year } = useStore()
+  const { courses, amountPerParticipant, fixcostsPerParticipant, year } = useStore()
   const { t } = useTranslation()
   const lng = cantonLng(id)
   const cantonStatement: CantonStatement = {
     courses: courses.filter(course => getAssociation(course.courseNumber).toUpperCase() === id.toUpperCase()),
     year: year,
     amountPerParticipant: amountPerParticipant,
+    fixcostsPerParticipant: fixcostsPerParticipant,
     canton: id
   }
 

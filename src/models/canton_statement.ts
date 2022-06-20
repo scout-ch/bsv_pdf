@@ -1,9 +1,10 @@
-import { Course } from "./course";
+import { calculateAmount, Course } from "./course";
 
 export type CantonStatement = {
   courses: Course[];
   year: number;
   amountPerParticipant: number;
+  fixcostsPerParticipant: number;
   canton: string;
 }
 
@@ -13,5 +14,6 @@ export function totalAttendanceCount(cantonStatement: CantonStatement): number {
 }
 
 export function totalAmount(cantontStatement: CantonStatement): number {
-  return totalAttendanceCount(cantontStatement) * cantontStatement.amountPerParticipant;
+  const { amountPerParticipant, fixcostsPerParticipant, courses } = cantontStatement
+  return courses.reduce((sum, course) => sum + calculateAmount(course, amountPerParticipant, fixcostsPerParticipant), 0.0);
 }

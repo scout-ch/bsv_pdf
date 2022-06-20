@@ -24,3 +24,13 @@ export type Course = {
   languagesCount: number;
   advisor?: Advisor;
 }
+
+export function calculateFixcosts(course: Course, fixcostsPerParticipant: number) {
+  if (!course.kind.startsWith("Basiskurs") && !course.kind.startsWith("Cours de base")) return 0;
+
+  return course.allParticipantsCount * fixcostsPerParticipant;
+}
+
+export function calculateAmount(course: Course, amountPerParticipant: number, fixcostsPerParticipant: number) {
+  return course.bsvEligibleAttendances * amountPerParticipant - calculateFixcosts(course, fixcostsPerParticipant)
+}
