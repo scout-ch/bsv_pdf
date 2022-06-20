@@ -16,7 +16,7 @@ export type AppState = {
 export const defaultState = { cantons: [], courses: [], advisors: {}, amountPerParticipant: 25.0, year: (new Date()).getFullYear() }
 
 export const useStore = create<AppState>(persist(
-  (set) => ({
+  (set, get) => ({
     ...defaultState,
     importData: (value: ImportTupel[]) => set((state) => ({ ...state, ...transform(value) })),
     setYear: (value: number) => set((state) => ({ ...state, year: value })),

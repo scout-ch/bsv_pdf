@@ -27,7 +27,7 @@ export function CantonStatementPdfView() {
   return (
     <>
       <div className="no-print">
-        <Link to="/">{t('back')}</Link>
+        <Link to="/">{t('back') as string}</Link>
         <button onClick={() => window.print()}>Print</button>
       </div>
 

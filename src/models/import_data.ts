@@ -64,6 +64,7 @@ export function extractAdvisor(tupel: ImportTupel): Advisor | null {
 }
 
 export function transform(data: ImportTupel[]): Partial<AppState> {
+      debugger
   const advisors: { [key: string]: Advisor } = {}
   const cantons: Set<string> = new Set<string>();
   const courses: Course[] = data.reduce((result: Course[], tupel) => {
