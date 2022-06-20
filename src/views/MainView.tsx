@@ -6,7 +6,7 @@ import { CantonTable } from '../components/CantonTable';
 import { useStore } from '../store';
 
 export function MainView() {
-  const { courses, amountPerParticipant, year, cantons, importData, setAmountPerParticipant, setYear } = useStore();
+  const { courses, amountPerParticipant, fixcostsPerParticipant, year, cantons, importData, setAmountPerParticipant, setFixcostsPerParticipant, setYear } = useStore();
 
   return (
     <Container>
@@ -21,6 +21,10 @@ export function MainView() {
           <label>
             <div>Betrag pro Tn</div>
             <input type="number" step="0.1" value={amountPerParticipant} onChange={(event) => setAmountPerParticipant(parseFloat(event.target.value))} />
+          </label>
+          <label>
+            <div>Fixkosten pro Tn</div>
+            <input type="number" step="0.1" value={fixcostsPerParticipant} onChange={(event) => setFixcostsPerParticipant(parseFloat(event.target.value))} />
           </label>
           <label>
             <div>Jahr</div>

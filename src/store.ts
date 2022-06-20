@@ -12,10 +12,11 @@ export type AppState = {
   importData: (value: ImportTupel[]) => void;
   setYear: (value: number) => void;
   setAmountPerParticipant: (value: number) => void;
+  setFixcostsPerParticipant: (value: number) => void;
 }
 
 export const defaultState = {
-  cantons: [], courses: [], advisors: {}, fixcostsPerParticipant: -50.0,
+  cantons: [], courses: [], advisors: {}, fixcostsPerParticipant: 50.0,
   amountPerParticipant: 25.0, year: (new Date()).getFullYear()
 }
 
@@ -25,6 +26,7 @@ export const useStore = create<AppState>(persist(
     importData: (value: ImportTupel[]) => set((state) => ({ ...state, ...transform(value) })),
     setYear: (value: number) => set((state) => ({ ...state, year: value })),
     setAmountPerParticipant: (value: number) => set((state) => ({ ...state, amountPerParticipant: value })),
+    setFixcostsPerParticipant: (value: number) => set((state) => ({ ...state, fixcostsPerParticipant: value })),
   }),
   {
     name: "bsv-pdf-storage",
