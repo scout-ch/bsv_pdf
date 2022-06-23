@@ -128,7 +128,7 @@ export function CantonStatementPdf({
                 </tr>
                 {fixcosts > 0 && <tr>
                   <td>
-                    {t('CantonStatementPdf.Kosten')}</td>
+                    {t('CantonStatementPdf.Kosten', { amount: fixcostsPerParticipant.toFixed() })}</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>

@@ -13,7 +13,7 @@ const resources = {
                  Der Tagesansatz ist aktuell CHF {{ amountPerParticipant }} / TN
 
                  Ohne Euren Gegenbericht innert 20 Tagen gehen wir davon aus, dass Ihr mit den unten aufgeführten Angaben einverstanden seid.`,
-        "Kosten": "Kostenabzug Kursunterlagen",
+        "Kosten": "Kostenabzug Kursunterlagen (CHF {{amount}}/Tn)",
         "Kursnummer": "Kursnummer",
         "Kursbezeichnung": "Kursbezeichnung",
         "ersterKurstag": "erster Kurstag",
@@ -56,7 +56,7 @@ const resources = {
 
                  Le tarif par jour et actuellement de {{ amountPerParticipant }} CHF / Part.`,
 
-        "Kosten": "Déduction des coûts des supports de cours",
+        "Kosten": "Déduction des coûts des supports de cours (CHF {{amount}}/Tn)",
         "Kursnummer": "No du cours",
         "Kursbezeichnung": "Type de cours",
         "ersterKurstag": "premier jour",

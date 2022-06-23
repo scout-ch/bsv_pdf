@@ -29,7 +29,7 @@ export function extractCourse(tupel: ImportTupel): Course | null {
       bsvEligibleParticipationsCount: parseFloat(tupel[11]),
       bsvEligibleAttendances: parseFloat(tupel[13]),
       bsvEligibleAttendance: getAttendancesFromSummary(tupel[12]),
-      leaderCount: tupel[14],
+      leaderCount: parseInt(tupel[14]),
       allParticipantsCount: parseFloat(tupel[15]),
       allParticipantsAttendanceSummary: tupel[16],
       allParticipantsAttendances: parseFloat(tupel[17]),

@@ -15,7 +15,7 @@ export type Course = {
   bsvEligibleParticipationsCount: number;
   bsvEligibleAttendances: number;
   bsvEligibleAttendance: Attendance[];
-  leaderCount: string;
+  leaderCount: number;
   allParticipantsCount: number;
   allParticipantsAttendanceSummary: string;
   allParticipantsAttendances: number;
@@ -27,8 +27,9 @@ export type Course = {
 
 export function calculateFixcosts(course: Course, fixcostsPerParticipant: number) {
   if (!course.kind.startsWith("Basiskurs") && !course.kind.startsWith("Cours de base")) return 0;
+  const participantsCount = (course.allParticipantsCount - course.leaderCount)
 
-  return course.allParticipantsCount * fixcostsPerParticipant;
+  return participantsCount * fixcostsPerParticipant;
 }
 
 export function calculateAmount(course: Course, amountPerParticipant: number, fixcostsPerParticipant: number) {
