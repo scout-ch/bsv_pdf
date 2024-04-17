@@ -1,17 +1,22 @@
-import React from 'react';
 import { DSVImport } from '../components/DSVImport';
 import { CourseTable } from '../components/CourseTable';
-import { Container } from '../components/Layout';
 import { CantonTable } from '../components/CantonTable';
 import { useStore } from '../store';
+import { useTranslation } from 'react-i18next';
+import { createFileRoute } from '@tanstack/react-router'
 
-export function MainView() {
+export const Route = createFileRoute('/')({
+  component: Index,
+})
+
+function Index() {
   const { courses, amountPerParticipant, fixcostsPerParticipant, year, cantons, importData, setAmountPerParticipant, setFixcostsPerParticipant, setYear } = useStore();
+  const { t } = useTranslation([], { lng: "de"})
 
   return (
-    <Container>
+    <main className="container mx-auto max-w-screen-md p-4 leading-relaxed h-screen flex flex-col">
       <div>
-        <h1>BSV PDF</h1>
+        <h1>{t("Index.title")}</h1>
         <div className="space-between">
           <label>
             <div>Datei</div>
@@ -36,8 +41,6 @@ export function MainView() {
         <h2>Kantone</h2>
         <CantonTable cantons={cantons}></CantonTable>
       </div>
-    </Container >
+    </main>
   );
 }
-
-export default MainView;

@@ -1,11 +1,10 @@
-import React, { FunctionComponent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '@tanstack/react-router'
 
 type CourseTableProps = {
   cantons: string[];
 }
 
-export const CantonTable: FunctionComponent<CourseTableProps> = ({ cantons }) => {
+export function CantonTable({ cantons }: CourseTableProps) {
   return (
     <table>
       <thead></thead>
@@ -13,7 +12,7 @@ export const CantonTable: FunctionComponent<CourseTableProps> = ({ cantons }) =>
         {cantons.map(canton => (
           <tr key={canton}>
             <td>{canton}</td>
-            <td><Link to={`/cantons/${canton}`}>PDF</Link></td>
+            <td><Link to="/cantons/$id" params={{ id: canton}}>PDF</Link></td>
           </tr>
         ))}
       </tbody>

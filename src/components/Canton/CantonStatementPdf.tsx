@@ -1,7 +1,6 @@
-import React from 'react'
 import styles from "./CantonStatementPdf.module.css";
 import { CantonStatement, totalAttendanceCount, totalAmount } from "../../models/canton_statement";
-import { Footer } from "../Footer";
+import { Footer } from "./Footer";
 import { totalAttendance } from "../../models/attendance"
 import { formatCourseNumber } from "../../models/course_number";
 import { useTranslation } from 'react-i18next'
@@ -16,7 +15,7 @@ export function CantonStatementPdf({
   statement, lng
 }: CantonStatementPdfProps) {
   const { courses, year, canton, amountPerParticipant, fixcostsPerParticipant } = statement;
-  const t = useTranslation().i18n.getFixedT(lng)
+  const { t } = useTranslation([], { lng })
 
   return (
     <div className={styles.document}>
