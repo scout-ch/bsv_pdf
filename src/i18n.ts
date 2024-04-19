@@ -6,7 +6,7 @@ const resources = {
     translation: {
       back: "Zurück",
       Index: {
-        title: "Halloo",
+        title: "MiData BSV PDF",
       },
       CantonStatementPdf: {
         locationDateHeader: "Bern, {{date}}",
@@ -42,6 +42,9 @@ const resources = {
   fr: {
     translation: {
       back: "Retour",
+      Index: {
+        title: "MiData BSV PDF",
+      },
       CantonStatementPdf: {
         locationDateHeader: "Berne, {{date}}",
         title: "Versement des subventions de cours à l'AC {{canton}} {{year}}",

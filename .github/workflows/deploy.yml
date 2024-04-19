@@ -8,7 +8,12 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@    
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: pnpm/action-setup@v3master
       - run: pnpm install
       - run: pnpm run build
       - uses: peaceiris/actions-gh-pages@v3
