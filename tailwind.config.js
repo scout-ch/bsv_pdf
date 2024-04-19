@@ -8,7 +8,17 @@ export default {
         secondary: "#fdfdf3",
       },
       fontFamily: {
-        sans: ["Source Sans Pro", "sans-serif", "ui-sans-serif", "system-ui"],
+        sans: [
+          "-apple-system,BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Oxygen",
+          "Ubuntu",
+          "Cantarell",
+          "Fira Sans",
+          "Droid Sans",
+          "Helvetica Neue",
+        ],
       },
     },
   },
