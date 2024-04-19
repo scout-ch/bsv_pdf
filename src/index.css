@@ -2,17 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+.no-print {
+  display: none !important;
+}
+
+@media print {
+  @page {
+    margin: 0;
+  }
+  body {
+    margin: 3rem;
+  }
+}
+
 .pdf {
   font-size: 10pt;
-  .no-print {
-    display: none !important;
-  }
 
   h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    margin-top: 4rem;
+    margin-top: 3rem;
     margin-bottom: 1rem;
+  }
+
+  header img {
+    display: block;
+    margin-left: auto;
   }
 
   p {
@@ -23,7 +38,7 @@
 
   .signature {
     max-width: 150px;
-    margin-bottom: 4em;
+    margin-bottom: 1em;
   }
 
   table {
@@ -62,10 +77,6 @@
     border-top: 2px solid black;
     font-weight: bold;
     padding: 0.75rem 0.25rem;
-  }
-
-  tr.separator td {
-    border-bottom: 2px solid black;
   }
 
   table td,

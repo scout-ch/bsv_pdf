@@ -16,10 +16,13 @@ function Index() {
     fixcostsPerParticipant,
     year,
     cantons,
+    footer,
     importData,
     setAmountPerParticipant,
     setFixcostsPerParticipant,
     setYear,
+    setFooter,
+    setSignature,
   } = useStore();
   const { t } = useTranslation([], { lng: "de" });
 
@@ -59,7 +62,26 @@ function Index() {
             />
           </div>
           <div className="mb-3">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Datei</label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Fusszeile</label>
+            <textarea
+              rows="4"
+              className="shadow appearance-none border border-primary rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
+              value={footer}
+              onChange={(event) => setFooter(event.target.value)}
+            ></textarea>
+          </div>
+
+          <div className="mb-3">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Unterschrift</label>
+            <input
+              className="shadow appearance-none border border-primary rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={(event) => event.target.files?.length && setSignature(event.target.files[0])}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="block text-gray-700 text-sm font-bold mb-2">MiData BSV Export</label>
             <DSVImport onChange={(value) => importData(value)}></DSVImport>
           </div>
         </form>

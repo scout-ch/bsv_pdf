@@ -36,10 +36,6 @@ const resources = {
         Greeting: `Für die Beantwortung von Fragen stehen wir Euch gerne zur Verfügung
 
                      Mit herzlichen Pfadigrüssen`,
-        Address: `Emanuel Wyss / Tschagon
-                    Ausbildungssekretariat PBS
-                    Direktwahl: 031 328 05 42
-                    E-Mail: emanuel.wyss@pbs.ch`,
       },
     },
   },
@@ -77,10 +73,6 @@ const resources = {
         Greeting: `N'hésitez pas à nous contacter pour tout renseignement supplémentaire.
 
                      Avec nos meilleures salutations`,
-        Address: `Emanuel Wyss / Tschagon
-                    Secrétariat MSdS à la Formation
-                    Tel. direct: 031 328 05 42 
-                    E-Mail: emanuel.wyss@pbs.ch`,
       },
     },
   },

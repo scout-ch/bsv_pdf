@@ -1,9 +1,9 @@
 import { CantonStatement, totalAttendanceCount, totalAmount } from "../models/canton_statement";
-import signature from "../images/signature.png";
 import { totalAttendance } from "../models/attendance";
 import { formatCourseNumber } from "../models/course_number";
 import { useTranslation } from "react-i18next";
 import { calculateAmount, calculateFixcosts } from "../models/course";
+import { useStore } from "../store";
 
 interface CantonStatementPdfProps {
   statement: CantonStatement;
@@ -13,10 +13,12 @@ interface CantonStatementPdfProps {
 export function CantonStatementPdf({ statement, lng }: CantonStatementPdfProps) {
   const { courses, year, canton, amountPerParticipant, fixcostsPerParticipant } = statement;
   const { t } = useTranslation([], { lng });
+  const { footer, signature } = useStore();
 
   return (
     <div className="pdf">
       <header>
+        <img src="/pbs.png" width="80" alt="PBS Logo" />
         <p>{t("CantonStatementPdf.locationDateHeader", { date: new Date().toLocaleDateString("de-CH") })}</p>
       </header>
       <h1>{t("CantonStatementPdf.title", { year, canton })}</h1>
@@ -157,7 +159,7 @@ export function CantonStatementPdf({ statement, lng }: CantonStatementPdfProps) 
       <footer>
         <p>{t("Footer.Greeting")}</p>
         <img className="signature" src={signature} alt="Signature" />
-        <p>{t("Footer.Address")}</p>
+        <p>{footer}</p>
       </footer>
     </div>
   );
