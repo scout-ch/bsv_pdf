@@ -11,9 +11,6 @@ dependencies:
   clsx:
     specifier: ^2.1.0
     version: 2.1.0
-  i18next-react:
-    specifier: ^0.2.2
-    version: 0.2.2(i18next@20.6.1)(react@18.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -28,6 +25,9 @@ devDependencies:
   '@tanstack/router-vite-plugin':
     specifier: ^1.12.3
     version: 1.12.3
+  '@types/papaparse':
+    specifier: ^5.3.14
+    version: 5.3.14
   '@types/react':
     specifier: ^18.2.43
     version: 18.2.48
@@ -1271,7 +1271,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
-    dev: false
 
   /@babel/template@7.22.15:
     resolution: {integrity: sha512-QPErUVm4uyJa60rkI73qneDacvdvzxshT3kksGqlGWYdOTIUOwJ7RDUL8sGqslY1uXWSL6xMFKEXDS3ox2uF0w==}
@@ -2017,6 +2016,12 @@ packages:
     resolution: {integrity: sha512-5G4zQwdiQBSWYTDAH1ctw2eidqdhMJaNsiIDKHFr55ihz5Trl2qqR8fdrT732yPBho5gkNxXm67OxWFBqX9aPg==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
+
+  /@types/papaparse@5.3.14:
+    resolution: {integrity: sha512-LxJ4iEFcpqc6METwp9f6BV6VVc43m6MfH0VqFosHvrUgfXiFe6ww7R3itkOQ+TCK6Y+Iv/+RnnvtRZnkc5Kc9g==}
+    dependencies:
+      '@types/node': 20.11.13
     dev: true
 
   /@types/prop-types@15.7.11:
@@ -3154,16 +3159,6 @@ packages:
       void-elements: 3.1.0
     dev: false
 
-  /i18next-react@0.2.2(i18next@20.6.1)(react@18.2.0):
-    resolution: {integrity: sha512-SptXIs0hVIFPis2s0797HbBJpze6ST2I02Wm3uSyMdSg5XPHW14eJVshdCfbGzgIDPKF7nrl6htbkDjYEd+HIA==}
-    peerDependencies:
-      i18next: '*'
-      react: '>=16.7'
-    dependencies:
-      i18next: 20.6.1
-      react: 18.2.0
-    dev: false
-
   /i18next@20.6.1:
     resolution: {integrity: sha512-yCMYTMEJ9ihCwEQQ3phLo7I/Pwycf8uAx+sRHwwk5U9Aui/IZYgQRyMqXafQOw5QQ7DM1Z+WyEXWIqSuJHhG2A==}
     dependencies:
@@ -3923,7 +3918,7 @@ packages:
   /regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
     dependencies:
-      '@babel/runtime': 7.23.8
+      '@babel/runtime': 7.24.4
     dev: true
 
   /regexp.prototype.flags@1.5.1:
@@ -4695,7 +4690,7 @@ packages:
       '@apideck/better-ajv-errors': 0.3.6(ajv@8.12.0)
       '@babel/core': 7.23.7
       '@babel/preset-env': 7.23.9(@babel/core@7.23.7)
-      '@babel/runtime': 7.23.8
+      '@babel/runtime': 7.24.4
       '@rollup/plugin-babel': 5.3.1(@babel/core@7.23.7)(rollup@2.79.1)
       '@rollup/plugin-node-resolve': 11.2.1(rollup@2.79.1)
       '@rollup/plugin-replace': 2.4.2(rollup@2.79.1)
