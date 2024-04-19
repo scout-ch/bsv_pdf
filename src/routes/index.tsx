@@ -64,7 +64,7 @@ function Index() {
           <div className="mb-3">
             <label className="block text-gray-700 text-sm font-bold mb-2">Fusszeile</label>
             <textarea
-              rows="4"
+              rows={4}
               className="shadow appearance-none border border-primary rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
               value={footer}
               onChange={(event) => setFooter(event.target.value)}

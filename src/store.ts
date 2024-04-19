@@ -35,7 +35,7 @@ E-Mail: celia.roduner@pbs.ch`,
 
 export const useStore = create<AppState>(
   persist(
-    (set, get) => ({
+    (set, _get) => ({
       ...defaultState,
       importData: (value: ImportTupel[]) => set((state) => ({ ...state, ...transform(value) })),
       setYear: (value: number) => set((state) => ({ ...state, year: value })),
