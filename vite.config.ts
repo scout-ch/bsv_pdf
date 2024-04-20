@@ -41,5 +41,6 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "bsv_pdf", // https://vitejs.dev/guide/static-deploy
   plugins: [react(), TanStackRouterVite()],
 });
