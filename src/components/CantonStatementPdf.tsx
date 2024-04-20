@@ -4,6 +4,7 @@ import { formatCourseNumber } from "../models/course_number";
 import { useTranslation } from "react-i18next";
 import { calculateAmount, calculateFixcosts } from "../models/course";
 import { useStore } from "../store";
+import pbsLogo from "../images/pbs.png";
 
 interface CantonStatementPdfProps {
   statement: CantonStatement;
@@ -18,7 +19,7 @@ export function CantonStatementPdf({ statement, lng }: CantonStatementPdfProps) 
   return (
     <div className="pdf">
       <header>
-        <img src="/pbs.png" width="80" alt="PBS Logo" />
+        <img src={pbsLogo} width="80" alt="PBS Logo" />
         <p>{t("CantonStatementPdf.locationDateHeader", { date: new Date().toLocaleDateString("de-CH") })}</p>
       </header>
       <h1>{t("CantonStatementPdf.title", { year, canton })}</h1>
@@ -158,7 +159,7 @@ export function CantonStatementPdf({ statement, lng }: CantonStatementPdfProps) 
       </table>
       <footer>
         <p>{t("Footer.Greeting")}</p>
-        <img className="signature" src={signature} alt="Signature" />
+        <img className="signature" src={signature} alt="" />
         <p>{footer}</p>
       </footer>
     </div>
