@@ -31,10 +31,16 @@ const CantonsIdRoute = CantonsIdImport.update({
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/cantons/$id': {
+      id: '/cantons/$id'
+      path: '/cantons/$id'
+      fullPath: '/cantons/$id'
       preLoaderRoute: typeof CantonsIdImport
       parentRoute: typeof rootRoute
     }
@@ -43,6 +49,26 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexRoute, CantonsIdRoute])
+export const routeTree = rootRoute.addChildren({ IndexRoute, CantonsIdRoute })
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.tsx",
+      "children": [
+        "/",
+        "/cantons/$id"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/cantons/$id": {
+      "filePath": "cantons.$id.tsx"
+    }
+  }
+}
+ROUTE_MANIFEST_END */

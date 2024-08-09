@@ -64,7 +64,7 @@ export function CantonStatementPdf({ statement, lng }: CantonStatementPdfProps) 
           const fixcosts = calculateFixcosts(course, fixcostsPerParticipant);
           const amount = calculateAmount(course, amountPerParticipant, fixcostsPerParticipant);
           return (
-            <tbody>
+            <tbody key={formatCourseNumber(course.courseNumber)}>
               <tr>
                 <td>
                   <strong>{formatCourseNumber(course.courseNumber)}</strong>
@@ -87,8 +87,8 @@ export function CantonStatementPdf({ statement, lng }: CantonStatementPdfProps) 
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
-              {attendances.map((attendance) => (
-                <tr>
+              {attendances.map((attendance, i) => (
+                <tr key={i}>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>{attendance.count}</td>
