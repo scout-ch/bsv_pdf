@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Course } from "./models/course";
 import { ImportTupel, transform } from "./models/import_data";
