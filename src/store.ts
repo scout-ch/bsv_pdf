@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { Course } from "./models/course";
 import { ImportTupel, transform } from "./models/import_data";
 
@@ -53,7 +53,7 @@ export const useStore = create<AppState>()(
     }),
     {
       name: "bsv-pdf-storage",
-      getStorage: () => sessionStorage,
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );
