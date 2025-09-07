@@ -33,7 +33,7 @@ Direktwahl: +41 31 328 05 59
 E-Mail: celia.roduner@pbs.ch`,
 };
 
-export const useStore = create<AppState>(
+export const useStore = create<AppState>()(
   persist(
     (set, _get) => ({
       ...defaultState,

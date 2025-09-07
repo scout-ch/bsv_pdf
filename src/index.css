@@ -8,10 +8,13 @@
 
 @media print {
   @page {
-    margin: 0;
+    margin: 15mm;
+    size: A4;
   }
-  body {
-    margin: 3rem;
+
+  thead {
+    display: table-header-group;
+    margin-top: 15mm;
   }
 }
 
