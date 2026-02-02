@@ -1,6 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+
+@theme {
+  --font-size-base: 10pt;
+  --font-size-h1: 1.8rem;
+  --font-weight-h1: bold;
+  --margin-h1-top: 3rem;
+  --margin-h1-bottom: 1rem;
+  --line-height-p: 1.25em;
+  --margin-p-bottom: 1em;
+  --table-font-size: 9pt;
+  --table-line-height: 1.25em;
+  --table-border: 2px solid black;
+  --table-padding: 0.1rem 0.25rem;
+}
 
 .no-print {
   display: none !important;
@@ -19,13 +32,13 @@
 }
 
 .pdf {
-  font-size: 10pt;
+  font-size: var(--font-size-base);
 
   h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+    font-size: var(--font-size-h1);
+    font-weight: var(--font-weight-h1);
+    margin-top: var(--margin-h1-top);
+    margin-bottom: var(--margin-h1-bottom);
   }
 
   header img {
@@ -35,28 +48,26 @@
 
   p {
     white-space: pre-line;
-    margin-bottom: 1em;
-    line-height: 1.25em;
+    margin-bottom: var(--margin-p-bottom);
+    line-height: var(--line-height-p);
   }
 
   .signature {
     max-width: 150px;
-    margin-bottom: 1em;
+    margin-bottom: var(--margin-p-bottom);
   }
 
   table {
-    font-size: 9pt;
-    line-height: 1.25em;
+    font-size: var(--table-font-size);
+    line-height: var(--table-line-height);
     width: 100%;
-    padding: 0;
-    border-spacing: 0;
     padding: 0;
     border-spacing: 0;
     border-collapse: collapse;
   }
 
   tbody {
-    border: 2px solid black;
+    border: var(--table-border);
   }
 
   tr td:nth-last-child(-n + 2),
@@ -70,14 +81,14 @@
   }
 
   table th {
-    border: 2px solid black;
+    border: var(--table-border);
     font-weight: bold;
     text-align: left;
   }
 
   table tfoot td {
     border: none;
-    border-top: 2px solid black;
+    border-top: var(--table-border);
     font-weight: bold;
     padding: 0.75rem 0.25rem;
   }
@@ -85,8 +96,8 @@
   table td,
   table th {
     margin: 0;
-    border-left: 2px solid black;
-    padding: 0.1rem 0.25rem;
-    border-right: 2px solid black;
+    border-left: var(--table-border);
+    padding: var(--table-padding);
+    border-right: var(--table-border);
   }
 }
