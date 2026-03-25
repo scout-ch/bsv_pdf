@@ -109,7 +109,7 @@ function Index() {
               <tr key={canton}>
                 <td>{canton}</td>
                 <td>
-                  <Link to="/cantons/$id" params={{ id: canton }} className="text-primary hover:underline">
+                  <Link to="/cantons/$id" params={{ id: canton }} className="text-brombeer-500 hover:underline">
                     PDF
                   </Link>
                 </td>

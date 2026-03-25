@@ -70,7 +70,7 @@ export function transform(data: ImportTupel[]): Partial<AppState> {
     const advisorId = tupel[20]
     if (!advisors[advisorId]) {
       const newAdvisor = extractAdvisor(tupel);
-      newAdvisor && (advisors[advisorId] = newAdvisor)
+      if (newAdvisor) advisors[advisorId] = newAdvisor;
     }
     const advisor = advisors[advisorId];
     const course = extractCourse(tupel)
@@ -78,7 +78,7 @@ export function transform(data: ImportTupel[]): Partial<AppState> {
     if (course) {
       result.push({ advisor, ...course })
       const canton = getAssociation(course.courseNumber)
-      canton && cantons.add(canton)
+      if (canton) cantons.add(canton);
     }
 
     return result

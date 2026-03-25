@@ -16,7 +16,7 @@ export const DSVImport: FunctionComponent<DSVImportProps> = ({ onChange }) => {
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target?.files && event.target.files[0];
-    file && reader.readAsText(file, "iso88591");
+    if (file) reader.readAsText(file, "iso88591");
   };
 
   return (
