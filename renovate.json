@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended"
   ],
-  "schedule": ["monthly"],
+  "schedule": ["* * 1 * *"],
   "packageRules": [
     {
       "groupName": "all-dependencies",
