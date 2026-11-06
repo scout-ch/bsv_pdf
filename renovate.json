@@ -1,10 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "schedule:monthly"
   ],
-  "schedule": ["0 0 1 * *"],
-  "updateNotScheduled": false,
   "packageRules": [
     {
       "groupName": "all-dependencies",
