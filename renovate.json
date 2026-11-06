@@ -3,7 +3,8 @@
   "extends": [
     "config:recommended"
   ],
-  "schedule": ["* * 1 * *"],
+  "schedule": ["0 0 1 * *"],
+  "updateNotScheduled": false,
   "packageRules": [
     {
       "groupName": "all-dependencies",
